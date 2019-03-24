@@ -1,3 +1,53 @@
+<?php
+// On démarre la session AVANT d'écrire du code HTML
+session_start();
+if(isset($_POST['pseudo']) && isset($_POST['pwd']) && isset($_POST['mail']))
+{ 
+      if($_POST['pwd']==$_POST['repwd']&& preg_match("/.+@.+\..+/", $_POST['mail'])){
+
+            $conn = new PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', 'root');
+
+            $pseudo =  $_POST['pseudo'];
+            $mail =   $_POST['mail'];
+    
+           $req = $conn->prepare('SELECT pseudo, mail FROM membres WHERE  pseudo = :pseudo OR mail = :mail');
+           $req->execute(array(
+            'pseudo' => $pseudo,
+            'mail' => $mail));
+            
+        $resultat = $req->fetch();
+          if(empty($resultat))
+          {
+
+                $pass_hache = password_hash($_POST['pwd'], PASSWORD_DEFAULT);
+          
+                // Insertion
+                $req = $conn->prepare('INSERT INTO membres(pseudo, pwd, mail, dateConnexion) VALUES(:pseudo, :pass, :mail, CURDATE())');
+                $req->execute(array(
+                    'pseudo' => $pseudo,
+                    'pass' => $pass_hache,
+                    'mail' => $mail));
+                      //redirection ne fonctionne pas
+                  header("Location: connexion.php");
+                  exit();
+
+          }else
+          {
+          //user existe deja
+              echo("user existe deja");
+              
+          }
+
+      } 
+      else{
+          //mot de passe ne sont pas identiques
+
+      }
+
+  }
+    
+    
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -81,52 +131,7 @@
 </form>
 
 <?php
-    if(isset($_POST['pseudo']) && isset($_POST['pwd']) && isset($_POST['mail']))
-    { 
-          if($_POST['pwd']==$_POST['repwd']&& preg_match("/.+@.+\..+/", $_POST['mail'])){
-
-                $conn = new PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', 'root');
-
-                $pseudo =  $_POST['pseudo'];
-                $mail =   $_POST['mail'];
-        
-               $req = $conn->prepare('SELECT pseudo, mail FROM membres WHERE  pseudo = :pseudo OR mail = :mail');
-               $req->execute(array(
-                'pseudo' => $pseudo,
-                'mail' => $mail));
-                
-            $resultat = $req->fetch();
-              if(empty($resultat))
-              {
-
-                    $pass_hache = password_hash($_POST['pwd'], PASSWORD_DEFAULT);
-              
-                    // Insertion
-                    $req = $conn->prepare('INSERT INTO membres(pseudo, pwd, mail, dateConnexion) VALUES(:pseudo, :pass, :mail, CURDATE())');
-                    $req->execute(array(
-                        'pseudo' => $pseudo,
-                        'pass' => $pass_hache,
-                        'mail' => $mail));
-                          //redirection ne fonctionne pas
-                      header("Location: connexion.php");
-                      exit();
-
-              }else
-              {
-              //user existe deja
-                  echo("user existe deja");
-                  
-              }
-
-          } 
-          else{
-              //mot de passe ne sont pas identiques
-
-          }
   
-      }
-        
-        
     
 ?>
  <br/> <br/>
