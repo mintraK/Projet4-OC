@@ -1,0 +1,78 @@
+<?php
+// On démarre la session AVANT d'écrire du code HTML
+session_start();
+if($_SESSION['pseudo']== "admin"){
+
+
+
+
+?>
+
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Blog</title>
+        <link rel="icon" type="image/jpg" href="../images/logo.jpg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <!-- <link href="bootstrap/css/bootstrap.css" rel="stylesheet"> -->
+        <!-- <link href="bootstrap/css/font-awesome.min.css" rel="stylesheet">  -->
+        <!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+	<!-- <link href="style.css" rel="stylesheet" />  -->
+    <style type="text/css">
+    .page{
+        overflow:hidden;
+    }
+      [class*="col"] { margin-bottom: 20px; }
+      img { width: 100%; }
+       body { margin-top: 10px; }
+       .fa {
+  
+            
+  padding: 20px;
+  font-size: 30px;
+  width: 50px;
+  text-align: center;
+  text-decoration: none;
+}
+ /* .fa-facebook {
+ color:white;
+  color: white;
+
+}   */
+
+    </style>
+     </head>
+
+
+    <body>
+        <div class="page">
+        
+        <header>  
+        <?php include("menuAdmin.php"); ?>
+
+    <!-- </header> se trove dans menuAdmin -->
+  
+    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"> 
+        <section  id = "detail">
+        jllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll
+        </section>
+    </div>
+    </div><!--div de row dans menuAdmin -->
+
+<section class = "pied">
+
+<?php include("../footer.php"); ?>
+</section>
+</div>
+</body>
+<?php }
+else{
+    header("Location:../index.php");
+} ?>
+</html>
