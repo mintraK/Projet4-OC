@@ -38,50 +38,48 @@ $req->execute(array($_GET['billet']));
         
     <body>
     <header>                
-    
-    <!-- <div id="logo"><img src="images/logo.jpg" alt="Logo" /></div> -->
-               <!-- Le menu -->  <?php include("menu.php"); ?>
+
+        <!-- Le menu --> 
+        <?php include("menu.php"); ?>
     </header>
 
-        <h1>Mon super blog !</h1>
         <p><a href="index.php">Retour à la liste des billets</a></p>
  
 
+        <div class="news">
+            <h3>
+                <?php echo htmlspecialchars($donnees['titre']); ?>
+                <em>le <?php echo $donnees['date_creation_fr']; ?></em>
+            </h3>
+            
+            <p>
+            <?php
+            echo nl2br(htmlspecialchars($donnees['contenu']));
+            ?>
+            </p>
+        </div>
 
-<div class="news">
-    <h3>
-        <?php echo htmlspecialchars($donnees['titre']); ?>
-        <em>le <?php echo $donnees['date_creation_fr']; ?></em>
-    </h3>
-    
-    <p>
-    <?php
-    echo nl2br(htmlspecialchars($donnees['contenu']));
-    ?>
-    </p>
-</div>
+            <h2>Commentaires</h2>
 
-<h2>Commentaires</h2>
+                <?php
+                while ($donnees = $req->fetch())
+                {
+                ?>
+                <p><strong><div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                <?php echo htmlspecialchars($donnees['auteur']); ?></h3>
+                </strong> le <?php echo $donnees['date_commentaire_fr']; ?>  <a href="#" style="color:red;" ><abbr title="Signaler"><span class="glyphicon glyphicon-exclamation-sign"></span></abbr></a></div></p> 
+                <p><div class="panel-body"><?php echo nl2br(htmlspecialchars($donnees['commentaire'])); ?></div></p></div>
+                <?php
 
-<?php
-while ($donnees = $req->fetch())
-{
-?>
-<p><strong><div class="panel panel-info">
-  <div class="panel-heading">
-    <h3 class="panel-title">
-<?php echo htmlspecialchars($donnees['auteur']); ?></h3>
- </strong> le <?php echo $donnees['date_commentaire_fr']; ?>  <a href="#" style="color:red;" ><abbr title="Signaler"><span class="glyphicon glyphicon-exclamation-sign"></span></abbr></a></div></p> 
-<p><div class="panel-body"><?php echo nl2br(htmlspecialchars($donnees['commentaire'])); ?></div></p></div>
-<?php
+                } // Fin de la boucle des commentaires
 
-} // Fin de la boucle des commentaires
+                ?>
+        <section class = "pied">
 
-?>
-    <section class = "pied">
-
-<?php include("footer.php"); ?>
-</section>
-</body>
+            <?php include("footer.php"); ?>
+        </section>
+    </body>
 </html>
 
