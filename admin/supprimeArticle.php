@@ -65,53 +65,57 @@ if($_SESSION['pseudo']== "admin"){
     <body>
         <div class="page">
        
-        <header>  
-        <?php include("menuAdmin.php"); ?>
-        <!-- </header> se trove dans menuAdmin -->
-   
-  <br/>
-    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-    <table class="table table-bordered table-striped table-condensed">
-    <caption>
-            <h4>Les articles</h4>
-    </caption>
-    <thead>
-    <tr>
-      <th>titres</th>
-      <th>contenus</th>
-      <th>supprimer</th>
-    </tr>
-  </thead>
-    <tbody>
+          <header>  
+            <?php include("menuAdmin.php"); ?>
+          </header> <!-- se trove dans menuAdmin -->
     
-    
-    <?php while ($donnees = $req->fetch())
- {  echo "<tr>";
-     echo "<td>";
-    echo nl2br(htmlspecialchars($donnees['titre']));
-    echo "</td>";
-    echo "<td>";
-    echo nl2br(htmlspecialchars($donnees['contenu']));
-    echo "</td>";
-    echo "<td>";
-    ?><a href="#" class="btn btn-default"><span class="glyphicon glyphicon-trash" style="color: red;"></span></a> <?php
-    echo "</td>";
-    echo "</tr>";
- }
-  ?>
-  </tbody></table>
-  </div>
-    </div><!--div de row dans menuAdmin -->
-    
+          <br/>
+          <section class = "detail" style="margin-top:50px;">
+            <div class="row">
+              <?php include("menuverticale.php"); ?>
 
-<section class = "pied">
+              <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                <table class="table table-bordered table-striped table-condensed">
+                  <caption>
+                      <h4>Les articles</h4>
+                  </caption>
+                  <thead>
+                    <tr>
+                      <th>titres</th>
+                      <th>contenus</th>
+                      <th>supprimer</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      <?php while ($donnees = $req->fetch())
+                      {  echo "<tr>";
+                          echo "<td>";
+                          echo nl2br(htmlspecialchars($donnees['titre']));
+                          echo "</td>";
+                          echo "<td>";
+                          echo nl2br(htmlspecialchars($donnees['contenu']));
+                          echo "</td>";
+                          echo "<td>";
+                      ?><a href="#" class="btn btn-default"><span class="glyphicon glyphicon-trash" style="color: red;"></span></a> 
+                      <?php
+                          echo "</td>";
+                          echo "</tr>";
+                      }
+                      ?>
+                  </tbody>
+                </table>
+              </div>
+            </div><!--div de row-->
+    
+          </section>
+          <section class = "pied">
 
-<?php include("footer.php"); ?>
-</section>
-</div>
-</body>
-<?php }
-else{
-  header("Location:../index.php");
-} ?>
+          <?php include("footer.php"); ?>
+          </section>
+        </div>
+    </body>
+    <?php }
+    else{
+      header("Location:../index.php");
+    } ?>
 </html>
