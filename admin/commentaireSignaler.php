@@ -10,8 +10,8 @@ try
          die('Erreur : '.$e->getMessage());
  }
  
- // On récupère les 5 derniers billets
- $req = $bdd->query('SELECT auteur, commentaire  FROM commentaires WHERE signaler = 1 ');
+ // On récupère les commentaires signalés
+ $req = $bdd->query('SELECT id, auteur, commentaire  FROM commentaires WHERE signaler = 1 ');
  
 
 
@@ -82,6 +82,7 @@ if($_SESSION['pseudo']== "admin"){
                         <th>titres</th>
                         <th>contenus</th>
                         <th>supprimer</th>
+                        <th>ignorer</th>
                       </tr>
                     </thead>
                     <tbody>                
@@ -94,8 +95,12 @@ if($_SESSION['pseudo']== "admin"){
                             echo nl2br(htmlspecialchars($donnees['commentaire']));
                             echo "</td>";
                             echo "<td>";
-                      ?> <a href="#" class="btn btn-default"><span class="glyphicon glyphicon-trash" style="color: red;"></span></a>
+                      ?> <a href="supprimerCommentaire.php?commentaire=<?php echo $donnees['id'];?>" class="btn btn-default"><span class="glyphicon glyphicon-trash" style="color: red;"></span></a>
                       <?php
+                            echo "</td>";
+                            echo "<td>";
+                            ?> <a href="ignorerCommentaire.php?commentaire=<?php echo $donnees['id'];?>" class="btn btn-default"><span class="glyphicon glyphicon-ok" style="color: green;"></span></a>
+                      <?php 
                             echo "</td>";
                             echo "</tr>";
                         }
