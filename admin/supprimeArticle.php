@@ -96,7 +96,7 @@ if($_SESSION['pseudo']== "admin"){
                           echo nl2br(htmlspecialchars($donnees['contenu']));
                           echo "</td>";
                           echo "<td>";
-                      ?><a href="#" class="btn btn-default"><span class="glyphicon glyphicon-trash" style="color: red;"></span></a> 
+                      ?><a href="supprime.php?billet=<?php echo $donnees['id'];?>" class="btn btn-default"><span class="glyphicon glyphicon-trash" style="color: red;"></span></a> 
                       <?php
                           echo "</td>";
                           echo "</tr>";
