@@ -30,15 +30,23 @@ if($_SESSION['pseudo']== "admin"){
         
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <script src="https://cloud.tinymce.com/5/tinymce.min.js?apiKey=v0f7pw8xvnajx4xwsnddsqks8qc4bshr9avi70ilks89lvf7"></script>
-<script>
-  tinymce.init({
-  selector: 'textarea',  // change this value according to your HTML
-  language_url : '../langs/fr_FR.js'  // site absolute URL
-});
-</script>
-  <script>tinymce.init({ selector:'textarea' });</script>
-	<!-- <link href="style.css" rel="stylesheet" />  -->
+        <script src='tinymce/js/tinymce/tinymce.min.js' type='text/javascript'></script>
+        <script>
+        tinymce.init({
+            selector: 'textarea',
+            themes: 'modern',
+            height: 200,
+            language: 'fr_FR' ,
+            menubar:false,
+            plugins: [
+            'advlist autolink lists link image charmap print preview anchor textcolor',
+            'searchreplace visualblocks code fullscreen',
+            'insertdatetime media table paste code help wordcount'
+          ],
+          toolbar: 'undo redo | formatselect | bold italic underline| alignleft aligncenter alignright alignjustify |cut copy paste|image | removeformat | help',
+        
+        });
+        </script>
     <style type="text/css">
     .page{
         overflow:hidden;
@@ -60,13 +68,7 @@ if($_SESSION['pseudo']== "admin"){
   color: white;
 
 }   */
-#editeur, #resultat {
-    width: 500px; 
-    height: 200px; 
-    border: 1px solid black;
-    padding: 5px; 
-    overflow: auto; 
-}
+
     </style>
      </head>
     <body>
@@ -83,8 +85,11 @@ if($_SESSION['pseudo']== "admin"){
             <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"> 
       
                 <h1>Ajouter un billet</h1>
-                <form method="post">
-                  <input type="text" name = "titre" placeholder ="Saisisez le titre"/>
+                <form method="post" action="AjouteArticle.php" enctype="multipart/form-data">
+                  <input type="text" name = "titre" placeholder ="Saisisez le titre"/><br />
+                  <label for="mon_fichier">Fichier (tous formats | max. 1 Mo) :</label><br />
+     <input type="hidden" name="MAX_FILE_SIZE" value="1048576" />
+     <input type="file" name="mon_fichier" id="mon_fichier" /><br />
                   <textarea id="mytextarea" name="contenu"></textarea>
                   <button id="button" type="submit" name="button">publier</button>
                 </form>
@@ -93,8 +98,6 @@ if($_SESSION['pseudo']== "admin"){
             </div> <!--div de col -->
           </div><!--div de row -->
         </section>
-
-
         
         <section class = "pied">
 
