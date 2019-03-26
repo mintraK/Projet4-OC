@@ -1,6 +1,23 @@
 <?php
 // On démarre la session AVANT d'écrire du code HTML
 session_start();
+try
+            {
+                $bdd = new PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', 'root');
+            }
+            catch(Exception $e)
+            {
+                    die('Erreur : '.$e->getMessage());
+            }
+            
+            // On récupère les 5 derniers billets
+            $req = $bdd->query('SELECT id, titre,photo, contenu, DATE_FORMAT(date_creation, \'%d/%m/%Y à %Hh%imin%ss\') AS date_creation_fr FROM billets ORDER BY date_creation DESC');
+            
+            
+           
+
+
+
 if($_SESSION['pseudo']== "admin"){
 
 ?>
@@ -53,14 +70,49 @@ if($_SESSION['pseudo']== "admin"){
                 <div class="row">
                     <?php include("menuverticale.php"); ?>
         
-        
-                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"> 
-                    
-                        <p>Tableau de bord</p>
-                
-                    </div>
-                </div>
-            </section>
+                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                <table class="table table-bordered table-striped table-condensed">
+                  <caption>
+                      <h4>Les articles</h4>
+                  </caption>
+                  <thead>
+                    <tr>
+                      <th>Titres</th>
+                      <th>Contenus</th>
+                      <th>Lien</th>
+                      <th>Modifier</th>
+                      <th>Supprimer</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                      <?php while ($donnees = $req->fetch())
+            
+                      {  echo "<tr>";
+                          echo "<td>";
+                          echo nl2br(htmlspecialchars($donnees['titre']));
+                          echo "</td>";
+                          echo "<td>";
+                          echo nl2br($donnees['contenu']);
+                          echo "</td>";
+                          echo "<td>";?> 
+                          <a href="../commentaires.php?billet=<?php echo $donnees['id']; ?>">Lien</a>
+                         <?php echo "</td>";
+                          echo "<td>";
+                      ?><a href="modifierArticle.php?billet=<?php echo $donnees['id']; ?>" class="btn btn-default"><span class="glyphicon glyphicon-pencil" style="color: green;"></span></a> 
+                      <?php
+                      echo "</td>";
+                      echo "<td>"; 
+                      ?><a href="supprime.php?billet=<?php echo $donnees['id']; ?>" class="btn btn-default"><span class="glyphicon glyphicon-trash" style="color: red;"></span></a> 
+                      <?php
+                          echo "</tr>";
+                      }
+                      ?>
+                  </tbody>
+                </table>
+              </div>
+            </div><!--div de row-->
+           
+          </section>
             <section class = "pied">
 
                 <?php include("../footer.php"); ?>
@@ -72,3 +124,7 @@ if($_SESSION['pseudo']== "admin"){
         header("Location:../index.php");
     } ?>
 </html>
+
+
+            
+            
