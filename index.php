@@ -78,13 +78,13 @@ session_start();
                         <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
                             <div class="panel panel-primary">
                                 <div class="panel-heading">
-                                    <h3 class="panel-title"><?php echo htmlspecialchars($donnees['titre']); ?></h3>
+                                    <h3 class="panel-title"><?php echo $donnees['titre']; ?></h3>
                                     <em>le <?php echo $donnees['date_creation_fr']; ?></em>
                                 </div>
                                 <div class="panel-body"><p>
                                     <?php
-                                    // On affiche le contenu du billet
-                                    echo nl2br(htmlspecialchars($donnees['contenu']));
+                                    // On affiche le contenu du billet et limite afficher max 500 carectere
+                                    echo substr($donnees['contenu'],0,500);
                                     ?>
                                     <br />
                                     <em><a href="commentaires.php?billet=<?php echo $donnees['id']; ?>">Lire la suite</a></em>
