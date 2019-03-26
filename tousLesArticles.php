@@ -2,6 +2,21 @@
 // On démarre la session AVANT d'écrire du code HTML
 session_start();
 
+            // Connexion à la base de données
+            try
+            {
+                $bdd = new PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', 'root');
+            }
+            catch(Exception $e)
+            {
+                    die('Erreur : '.$e->getMessage());
+            }
+            
+            // On récupère les 5 derniers billets
+            $req = $bdd->query('SELECT id, titre,photo, contenu, DATE_FORMAT(date_creation, \'%d/%m/%Y à %Hh%imin%ss\') AS date_creation_fr FROM billets ORDER BY date_creation DESC');
+            
+            
+            
 ?>
 
 <!DOCTYPE html>
@@ -53,18 +68,6 @@ session_start();
    
  
             <?php
-            // Connexion à la base de données
-            try
-            {
-                $bdd = new PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', 'root');
-            }
-            catch(Exception $e)
-            {
-                    die('Erreur : '.$e->getMessage());
-            }
-            
-            // On récupère les 5 derniers billets
-            $req = $bdd->query('SELECT id, titre,photo, contenu, DATE_FORMAT(date_creation, \'%d/%m/%Y à %Hh%imin%ss\') AS date_creation_fr FROM billets ORDER BY date_creation DESC');
             
             while ($donnees = $req->fetch())
             {
@@ -78,13 +81,13 @@ session_start();
                     <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><?php echo htmlspecialchars($donnees['titre']); ?></h3>
+                                <h3 class="panel-title"><?php echo $donnees['titre']; ?></h3>
                                 <em>le <?php echo $donnees['date_creation_fr']; ?></em>
                             </div>
                             <div class="panel-body"><p>
                                 <?php
                                 // On affiche le contenu du billet
-                                echo nl2br(htmlspecialchars($donnees['contenu']));
+                                echo substr($donnees['contenu'],0,500);
                                 ?>
                                 <br />
                                 <em><a href="commentaires.php?billet=<?php echo $donnees['id']; ?>">Lire la suite</a></em>
