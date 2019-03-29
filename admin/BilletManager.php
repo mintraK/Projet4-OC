@@ -20,8 +20,21 @@ class BilletManager{
             'titre' => $billet->titre(),
             'contenu' => $billet->contenu()
         ]);
+            
+       
+
 
     }
+    //afficher tous les billets
+    public function getList(){
+       
+        $billets = [];
+
+        $req = $this->_db->query('SELECT id, titre,photo, contenu, DATE_FORMAT(date_creation, \'%d/%m/%Y à %Hh%imin%ss\') AS date_creation_fr FROM billets ORDER BY date_creation DESC');
+        return $req;
+
+    }
+
      // Récupération du billet
     public function get($id){
                
@@ -34,7 +47,33 @@ class BilletManager{
     
       
     }
+    //Modifier le contenu de billet
+    public function modifier(Billet $billet){
+        
+        $titre =  $billet->titre();
+        $contenu =   $billet->contenu();
+        
+            $req = $this->_db->prepare('UPDATE billets SET titre = :titre, contenu = :contenu, date_creation= NOW() WHERE id = :id ');
+            $req->execute(array(
+            'titre' => $titre,
+            'contenu' => $contenu,
+            'id' => $billet->id()));
+         
 
+
+    }
+    //supprimer l'article et ses commentaires
+    public function supprimer($id){
+
+        $req = $this->_db->prepare('DELETE FROM billets WHERE id = :id');
+        $req->execute(array(
+        'id' => $id));
+    
+        $req= $this->_db->prepare('DELETE FROM commentaires WHERE id_billet = :id');
+        $req->execute(array(
+        'id' => $id));
+    
+    }
 
 
 }
