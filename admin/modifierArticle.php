@@ -1,30 +1,25 @@
 <?php
 // On démarre la session AVANT d'écrire du code HTML
  session_start();
- $conn = new PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', 'root');
-// if(isset($_POST['titre'])){
-
-
-$req = $conn->prepare('SELECT titre, contenu,id  FROM billets WHERE id = ?');
-$req->execute(array($_GET['billet']));
-$donnees = $req->fetch();
-
-
+ require "BilletManager.php";
+   
+                    
+ $billetManager = new BilletManager();
+ $billet = $billetManager->get($_GET['billet']);  
 
 if(isset($_POST['titre'])){
-   
-    $titre =  $_POST['titre'];
-$contenu =   $_POST['contenu'];
+  // $billet = new Billet([
+  //   'titre' => $titre,
+  //   'contenu' => $contenu
+  // ]);
+  $billet->setTitre($_POST['titre']);
+  $billet->setContenu($_POST['contenu']);
+  $billetManager->modifier($billet);
+  header("Location:admin.php");
+//     $titre =  $_POST['titre'];
+// $contenu =   $_POST['contenu'];
 
-    $req = $conn->prepare('UPDATE billets SET titre = :titre, contenu = :contenu, date_creation= NOW() WHERE id = :id ');
-$req->execute(array(
-    'titre' => $titre,
-    'contenu' => $contenu,
-    'id' => $_GET['billet']));
-    header("Location:admin.php");
 }
-
- 
 
 
 if($_SESSION['pseudo']== "admin"){
@@ -98,10 +93,10 @@ if($_SESSION['pseudo']== "admin"){
             <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9"> 
       
                 <h1>Modifier le billet</h1>
-                <form method="post" action="modifierArticle.php?billet=<?php echo $donnees['id']; ?>" >
-                  <input type="text" name = "titre" placeholder ="Saisisez le titre" value = "<?php echo $donnees['titre']; ?>"/><br />
+                <form method="post" action="modifierArticle.php?billet=<?= $billet->id(); ?>" >
+                  <input type="text" name = "titre" placeholder ="Saisisez le titre" value = "<?= $billet->titre(); ?>"/><br />
                
-                  <textarea id="mytextarea" name="contenu" ><?php echo $donnees['contenu']; ?></textarea>
+                  <textarea id="mytextarea" name="contenu" ><?= $billet->contenu(); ?></textarea>
                   <button id="button" type="submit" name="button">publier</button>
                 </form>
              
