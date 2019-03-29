@@ -1,19 +1,21 @@
 <?php
 // On démarre la session AVANT d'écrire du code HTML
 session_start();
-$conn = new PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', 'root');
+
+require "BilletManager.php";
+
 if(isset($_POST['titre'])){
 
   $titre =  $_POST['titre'];
-$contenu =   $_POST['contenu'];
+  $contenu =   $_POST['contenu'];
 
-$req = $conn->prepare('INSERT INTO billets( titre, contenu, date_creation) VALUES(:titre, :contenu, NOW())');
-$req->execute(array(
-    'titre' => $titre,
-    'contenu' => $contenu));
+$billetManager = new BilletManager();
+$billet = new Billet([
+  'titre' => $titre,
+  'contenu' => $contenu
+]);
+$billetManager->add($billet);
 }
-
-
 
 if($_SESSION['pseudo']== "admin"){
 ?>
@@ -87,9 +89,6 @@ if($_SESSION['pseudo']== "admin"){
                 <h1>Ajouter un billet</h1>
                 <form method="post" action="AjouteArticle.php" enctype="multipart/form-data">
                   <input type="text" name = "titre" placeholder ="Saisisez le titre"/><br />
-                  <label for="mon_fichier">Fichier (tous formats | max. 1 Mo) :</label><br />
-     <input type="hidden" name="MAX_FILE_SIZE" value="1048576" />
-     <input type="file" name="mon_fichier" id="mon_fichier" /><br />
                   <textarea id="mytextarea" name="contenu"></textarea>
                   <button id="button" type="submit" name="button">publier</button>
                 </form>
