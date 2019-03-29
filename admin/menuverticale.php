@@ -9,12 +9,6 @@
                          <a class="nav-link active" href="ajouteArticle.php">Ajouter un article</a>
                      </li>  
                      <li class="nav-item">
-                         <a class="nav-link" href="modifierArticle.php">Modifier un article</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="supprimeArticle.php">Supprimer les articles</a>
-                     </li>
-                     <li class="nav-item">
                          <a class="nav-link" href="commentaireSignaler.php">Commentaires signalés</a>
                     </li>
                    
