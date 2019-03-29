@@ -85,28 +85,16 @@ if($_SESSION['pseudo']== "admin"){
                     </tr>
                   </thead>
                   <tbody>
-                      <?php while ($donnees = $req->fetch())
+                      <?php while ($donnees = $req->fetch()){ ?>
             
-                      {  echo "<tr>";
-                          echo "<td>";
-                          echo nl2br(htmlspecialchars($donnees['titre']));
-                          echo "</td>";
-                          echo "<td>";
-                          echo nl2br($donnees['contenu']);
-                          echo "</td>";
-                          echo "<td>";?> 
-                          <a href="../commentaires.php?billet=<?php echo $donnees['id']; ?>">Lien</a>
-                         <?php echo "</td>";
-                          echo "<td>";
-                      ?><a href="modifierArticle.php?billet=<?php echo $donnees['id']; ?>" class="btn btn-default"><span class="glyphicon glyphicon-pencil" style="color: green;"></span></a> 
-                      <?php
-                      echo "</td>";
-                      echo "<td>"; 
-                      ?><a href="supprime.php?billet=<?php echo $donnees['id']; ?>" class="btn btn-default"><span class="glyphicon glyphicon-trash" style="color: red;"></span></a> 
-                      <?php
-                          echo "</tr>";
-                      }
-                      ?>
+                        <tr>
+                            <td><?= nl2br(htmlspecialchars($donnees['titre'])) ?></td>
+                            <td><?= nl2br($donnees['contenu'])?></td>
+                            <td><a href="../commentaires.php?billet=<?= $donnees['id'] ?>">Lien</a></td>
+                            <td><a href="modifierArticle.php?billet=<?= $donnees['id'] ?>" class="btn btn-default"><span class="glyphicon glyphicon-pencil" style="color: green;"></span></a> </td>
+                            <td><a href="supprime.php?billet=<?= $donnees['id'] ?>" class="btn btn-default"><span class="glyphicon glyphicon-trash" style="color: red;"></span></a> </td>
+                        </tr>
+                      <?php } ?>
                   </tbody>
                 </table>
               </div>
