@@ -1,20 +1,11 @@
 <?php
 // On démarre la session AVANT d'écrire du code HTML
 session_start();
-try
-            {
-                $bdd = new PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', 'root');
-            }
-            catch(Exception $e)
-            {
-                    die('Erreur : '.$e->getMessage());
-            }
-            
-            // On récupère les 5 derniers billets
-            $req = $bdd->query('SELECT id, titre,photo, contenu, DATE_FORMAT(date_creation, \'%d/%m/%Y à %Hh%imin%ss\') AS date_creation_fr FROM billets ORDER BY date_creation DESC');
-            
-            
-           
+ require "BilletManager.php";
+          
+$billetManager = new BilletManager();
+
+$billets = $billetManager->getList();  
 
 
 
@@ -71,7 +62,8 @@ if($_SESSION['pseudo']== "admin"){
                     <?php include("menuverticale.php"); ?>
         
                     <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                <table class="table table-bordered table-striped table-condensed">
+                 
+                    <table class="table table-bordered table-striped table-condensed">
                   <caption>
                       <h4>Les articles</h4>
                   </caption>
@@ -85,10 +77,10 @@ if($_SESSION['pseudo']== "admin"){
                     </tr>
                   </thead>
                   <tbody>
-                      <?php while ($donnees = $req->fetch()){ ?>
-            
+                      <?php while ($donnees = $billets->fetch()){ ?>
+                     
                         <tr>
-                            <td><?= nl2br(htmlspecialchars($donnees['titre'])) ?></td>
+                            <td><?= htmlspecialchars($donnees['titre']); ?></td>
                             <td><?= nl2br($donnees['contenu'])?></td>
                             <td><a href="../commentaires.php?billet=<?= $donnees['id'] ?>">Lien</a></td>
                             <td><a href="modifierArticle.php?billet=<?= $donnees['id'] ?>" class="btn btn-default"><span class="glyphicon glyphicon-pencil" style="color: green;"></span></a> </td>
@@ -97,8 +89,9 @@ if($_SESSION['pseudo']== "admin"){
                       <?php } ?>
                   </tbody>
                 </table>
-              </div>
-            </div><!--div de row-->
+               
+                    </div>
+                </div><!--div de row-->
            
           </section>
             <section class = "pied">
