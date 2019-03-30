@@ -1,36 +1,61 @@
 <?php
 session_start();
-// Connexion à la base de données
 
   require "admin/BilletManager.php";
-// try
-// {
-// 	$bdd = new PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', 'root');
+  require "CommentaireManager.php";
 
-// }
-// catch(Exception $e)
-// {
-//         die('Erreur : '.$e->getMessage());
-// }
 
 $billetManager = new BilletManager();
 
 $billet = $billetManager->get($_GET['billet']);
 
+//Récupération des commentaires
+$commentaireManager = new CommentaireManager();
+$commentaires =  $commentaireManager->getList($billet->id());
 
-// Récupération des commentaires
-// $req = $bdd->prepare('SELECT id, auteur, commentaire, DATE_FORMAT(date_commentaire, \'%d/%m/%Y à %Hh%imin%ss\') AS date_commentaire_fr FROM commentaires WHERE id_billet = ? ORDER BY date_commentaire');
-// $req->execute(array($billet));
+//pour pouvoir signaler 
+ if(isset($_POST['idCommentaire'])){
+    // $signalerCommentaireManager = new CommentaireManager();
 
-// if(isset($_POST['idCommentaire'])){
+    //  $dataCommentaire = $signalerCommentaireManager->getCommentaire($_POST['idCommentaire']);
+        echo "teeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
+       echo $_POST['idCommentaire'];
     
+     //$signalerCommentaireManager->signaler($_POST['idCommentaire']);
 // $req2 = $bdd->prepare('UPDATE commentaires SET signaler =1 WHERE id = ?');
 // $req2->execute(array($_POST['idCommentaire']));
 // // $_POST['idCommentaire'] = NULL;
 // // unset($_POST['idCommentaire']);
-// }
-// //pour ajouter un commentaire
-// if(isset($_POST['texteCommentaire'])){
+ }
+
+// //pour ajouter un commentaire 
+
+ if(isset($_POST['texteCommentaire'])&&($_POST['texteCommentaire']!="")){
+
+     $ajouteCommentaireManager = new CommentaireManager();
+     $ajouteCommentaire = new CommentaireUtilisateur([
+        'idBillet' => $billet->id(),
+            'auteur' => $_SESSION['pseudo'],
+            'commentaire' => $_POST['texteCommentaire'],
+            'signaler' => 0
+     ]);
+     $ajouteCommentaireManager->add($ajouteCommentaire);
+
+    //pour pouvoir signaler 
+    // $commentaire->setIdBillet($billet->id());
+    //  $commentaire->setAuteur($_SESSION['pseudo']);
+    //  $commentaire->setCommentaire($_POST['texteCommentaire']);
+    //  $commentaire->setSignaler(0);
+    //  $commentaireManager->add($commentaire);
+
+
+
+    // $commentaire =new CommentaireUtilisateur([
+    //     'idBillet' => $billet->id(),
+    //     'auteur' => $_SESSION['pseudo'],
+    //     'commentaire' => $_POST['texteCommentaire']
+    //   ]);
+    // $commentaireManager->add( $commentaire);
 
 //     $auteur = $_SESSION['pseudo'];
 //     $commentaire = $_POST['texteCommentaire'];
@@ -44,7 +69,7 @@ $billet = $billetManager->get($_GET['billet']);
         
 //         header("Location:commentaires.php?billet=".$_GET['billet']);
     
-//     }
+   }
 
 
 ?>
@@ -86,7 +111,7 @@ $billet = $billetManager->get($_GET['billet']);
             <header>                
                 <?php include("menu.php"); ?>
             </header>
-
+            <br/><br/><br/>
             <p><a href="index.php">Retour à la liste des billets</a></p>
     
             <div class = "row">
@@ -103,7 +128,7 @@ $billet = $billetManager->get($_GET['billet']);
             <div class = "row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> 
                     <h2>Commentaires</h2>
-                        <?php while ($donnees = $req->fetch()){ ?>
+                        <?php while ($donnees = $commentaires->fetch()){ ?>
                             <p><strong>
                                 <div class="panel panel-info">
                                     <div class="panel-heading">
@@ -122,7 +147,7 @@ $billet = $billetManager->get($_GET['billet']);
                 <div class="col-xs-6 col-sm-6 col-md-8  col-lg-8 "> 
                         <?php if(isset($_SESSION['pseudo'])){
                         ?>
-                        <form class="form-group" method = "post" action = "commentaires.php?billet=<?php echo $_GET['billet'] ; ?>">
+                        <form class="form-group" method = "post" action = "commentaires.php?billet=<?= $_GET['billet'] ; ?>">
                             <fieldset>
 
                                 <!-- Form Name -->
@@ -131,9 +156,9 @@ $billet = $billetManager->get($_GET['billet']);
 
                                     <!-- Textarea -->
                                     <div class="form-horizontal form-group">
-                                        <label class="col-md-4  control-label" for="textarea"><?php echo $_SESSION['pseudo'];?></label>
+                                        <label class="col-md-4  control-label" for="textarea"><?= $_SESSION['pseudo'];?></label>
                                         <div class="col-md-6">                     
-                                            <textarea class="form-control" id="textarea" name="texteCommentaire">Commentaire</textarea>
+                                            <textarea class="form-control" id="textarea" name="texteCommentaire" placeholder = "Commentaire"></textarea>
                                         </div>
                                     </div>
 
