@@ -45,15 +45,30 @@ class CommentaireManager{
         // return $req;
 
     }
+    public function getSignaler(){
+         // On récupère les commentaires signalés
+        $req = $this->_db->query('SELECT id, auteur, commentaire  FROM commentaires WHERE signaler = 1 ');
+        return $req;
+    }
     public function signaler($idCommentaire){       
         $req = $this->_db->prepare('UPDATE commentaires SET signaler =1 WHERE id = ?');
         $req->execute(array($idCommentaire));
-        echo "eleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
-        elllllllllllllllllllllllllllllllll
-        ekkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk";
-        echo $idCommentaire;
+        // header("Location:commentaires.php?billet=".$commentaire->idBillet());
         // $_POST['idCommentaire'] = NULL;
 
+    }
+    public function supprimerCommentaire($idCommentaire){
+        $req= $this->_db->prepare('DELETE FROM commentaires WHERE id = :id');
+        $req->execute(array(
+        'id' => $idCommentaire));
+    
+
+    }
+    public function Commentaireignorer($idCommentaire){
+        $req= $this->_db->prepare('UPDATE commentaires SET signaler=0 WHERE id = :id');
+        $req->execute(array(
+        'id' => $idCommentaire));
+    
     }
      // Récupération du commentaire
     public function getCommentaire($id){
