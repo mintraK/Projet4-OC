@@ -13,6 +13,7 @@ if(isset($_POST['titre'])){
   //   'contenu' => $contenu
   // ]);
   $billet->setTitre($_POST['titre']);
+  // $billet->setPhoto($_POST['photo]);
   $billet->setContenu($_POST['contenu']);
   $billetManager->modifier($billet);
   header("Location:admin.php");
@@ -38,6 +39,8 @@ if($_SESSION['pseudo']== "admin"){
         
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
         <script src='tinymce/js/tinymce/tinymce.min.js' type='text/javascript'></script>
         <script>
         tinymce.init({
@@ -85,7 +88,7 @@ if($_SESSION['pseudo']== "admin"){
           <?php include("menuAdmin.php"); ?>
         </header>
         <br/> 
-        <section class = "detail" style="margin-top:50px;">
+        <section class = "detail">
           <div class="row">
             <?php include("menuverticale.php");
              ?>
@@ -95,7 +98,7 @@ if($_SESSION['pseudo']== "admin"){
                 <h1>Modifier le billet</h1>
                 <form method="post" action="modifierArticle.php?billet=<?= $billet->id(); ?>" >
                   <input type="text" name = "titre" placeholder ="Saisisez le titre" value = "<?= $billet->titre(); ?>"/><br />
-               
+                  
                   <textarea id="mytextarea" name="contenu" ><?= $billet->contenu(); ?></textarea>
                   <button id="button" type="submit" name="button">publier</button>
                 </form>
