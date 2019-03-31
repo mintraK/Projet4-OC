@@ -15,9 +15,10 @@ class BilletManager{
         }
     }
     public function add(Billet $billet){
-        $req = $this->_db->prepare('INSERT INTO billets( titre, contenu, date_creation) VALUES(:titre, :contenu, NOW())');
+        $req = $this->_db->prepare('INSERT INTO billets( titre,photo, contenu, date_creation) VALUES(:titre, :photo,:contenu, NOW())');
         $req->execute([ 
             'titre' => $billet->titre(),
+            'photo' => $billet->photo(),
             'contenu' => $billet->contenu()
         ]);
             
@@ -28,9 +29,8 @@ class BilletManager{
     //afficher tous les billets
     public function getList(){
        
-        $billets = [];
 
-        $req = $this->_db->query('SELECT id, titre,photo, contenu, DATE_FORMAT(date_creation, \'%d/%m/%Y à %Hh%imin%ss\') AS date_creation_fr FROM billets ORDER BY date_creation DESC');
+        $req = $this->_db->query('SELECT id, titre, photo, contenu, DATE_FORMAT(date_creation, \'%d/%m/%Y à %Hh%imin%ss\') AS date_creation_fr FROM billets ORDER BY date_creation DESC');
         return $req;
 
     }
@@ -38,7 +38,7 @@ class BilletManager{
      // Récupération du billet
     public function get($id){
                
-        $req = $this->_db->prepare('SELECT id, titre, contenu, DATE_FORMAT(date_creation, \'%d/%m/%Y à %Hh%imin%ss\') AS datecreation FROM billets WHERE id = ?');
+        $req = $this->_db->prepare('SELECT id, titre, photo, contenu, DATE_FORMAT(date_creation, \'%d/%m/%Y à %Hh%imin%ss\') AS datecreation FROM billets WHERE id = ?');
         $req->execute([
             $id
         ]);
@@ -51,6 +51,7 @@ class BilletManager{
     public function modifier(Billet $billet){
         
         $titre =  $billet->titre();
+        $photo =   $billet->photo();
         $contenu =   $billet->contenu();
         
             $req = $this->_db->prepare('UPDATE billets SET titre = :titre, contenu = :contenu, date_creation= NOW() WHERE id = :id ');
