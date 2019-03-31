@@ -6,16 +6,64 @@ require "BilletManager.php";
 
 if(isset($_POST['titre'])){
 
+  
   $titre =  $_POST['titre'];
   $contenu =   $_POST['contenu'];
 
-$billetManager = new BilletManager();
-$billet = new Billet([
-  'titre' => $titre,
-  'contenu' => $contenu
-]);
-$billetManager->add($billet);
+
+  // Ajout contenu avec Imge
+//ajouter une photo
+if (isset($_FILES['mon_fichier']) && $_FILES['mon_fichier']['error'] === UPLOAD_ERR_OK) {
+  // get details of the uploaded file
+  $fileTmpPath = $_FILES['mon_fichier']['tmp_name'];
+  $fileName = $_FILES['mon_fichier']['name'];
+  $fileSize = $_FILES['mon_fichier']['size'];
+  $fileType = $_FILES['mon_fichier']['type'];
+  $fileNameCmps = explode(".", $fileName);
+  $fileExtension = strtolower(end($fileNameCmps));
+
+
+
+  $ExtensionsAutorise = array('jpg', 'png');
+  if (in_array($fileExtension, $ExtensionsAutorise)) {
+      $newFileName = $fileName;
+      $uploadFileDir = '../images/';
+      $dest_path = $uploadFileDir . $newFileName;
+      
+      if(move_uploaded_file($fileTmpPath, $dest_path))
+      {
+        // Metre ds sql
+       
+        $billetManager = new BilletManager();
+        $billet = new Billet([
+          'titre' => $titre,
+          'photo' => 'images/'.$newFileName,
+          'contenu' => $contenu
+        ]);
+        $billetManager->add($billet);
+        
+    
+      }
+    } 
+  }
+else 
+  {
+    // Ajout Contenue Sans imgae 
+    $billetManager = new BilletManager();
+    $billet = new Billet([
+      'titre' => $titre,
+      'contenu' => $contenu
+    ]);
+    $billetManager->add($billet);
+
+  }
+  header("Location:admin.php");
+
 }
+
+
+
+
 
 if($_SESSION['pseudo']== "admin"){
 ?>
@@ -78,8 +126,8 @@ if($_SESSION['pseudo']== "admin"){
         <header>  
           <?php include("menuAdmin.php"); ?>
         </header>
-        <br/> 
-        <section class = "detail" style="margin-top:50px;">
+       
+        <section class = "detail">
           <div class="row">
             <?php include("menuverticale.php");
             echo $_POST['test']; ?>
@@ -89,6 +137,10 @@ if($_SESSION['pseudo']== "admin"){
                 <h1>Ajouter un billet</h1>
                 <form method="post" action="AjouteArticle.php" enctype="multipart/form-data">
                   <input type="text" name = "titre" placeholder ="Saisisez le titre"/><br />
+
+                  <label for="mon_fichier">Photo (tous formats | max. 1 Mo) :</label><br />
+                  <input type="hidden" name="MAX_FILE_SIZE" value="1048576" />
+                  <input type="file"  name="mon_fichier" id="mon_fichier" /><br />
                   <textarea id="mytextarea" name="contenu"></textarea>
                   <button id="button" type="submit" name="button">publier</button>
                 </form>
