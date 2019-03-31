@@ -1,23 +1,33 @@
 <?php
 // On démarre la session AVANT d'écrire du code HTML
 session_start();
-try
- {
-     $bdd = new PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', 'root');
- }
- catch(Exception $e)
- {
-         die('Erreur : '.$e->getMessage());
- }
+
+  require "../CommentaireManager.php";
+
  
  // On récupère les commentaires signalés
- $req = $bdd->query('SELECT id, auteur, commentaire  FROM commentaires WHERE signaler = 1 ');
+ //$req = $bdd->query('SELECT id, auteur, commentaire  FROM commentaires WHERE signaler = 1 ');
  
+ $commentaire = new CommentaireManager();
+ $commentaireSignaler= $commentaire->getSignaler();
 
 
 
 
 if($_SESSION['pseudo']== "admin"){
+
+  //supprimer les commentaires signaler
+  if(isset($_GET['comsupprimer'])){
+$supprimerCom = new CommentaireManager();
+$supprimerCom->supprimerCommentaire($_GET['comsupprimer']);
+header("Location:commentaireSignaler.php");
+  }
+  if(isset($_GET['comignorer'])){
+    $commentaireignorer = new CommentaireManager();
+    $commentaireignorer->Commentaireignorer($_GET['comignorer']);
+    header("Location:commentaireSignaler.php");
+      }
+    
 ?>
 
 
@@ -34,7 +44,8 @@ if($_SESSION['pseudo']== "admin"){
         <!-- <link href="bootstrap/css/font-awesome.min.css" rel="stylesheet">  -->
         <!-- Add icon library -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> 
 	<!-- <link href="style.css" rel="stylesheet" />  -->
     <style type="text/css">
     .page{
@@ -68,8 +79,8 @@ if($_SESSION['pseudo']== "admin"){
             <?php include("menuAdmin.php"); ?>
 
           </header>
-          <br/> 
-          <section class = "detail" style="margin-top:50px;">
+         
+          <section class = "detail" >
             <div class="row">
                 <?php include("menuverticale.php"); ?>
                 <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
@@ -86,7 +97,7 @@ if($_SESSION['pseudo']== "admin"){
                       </tr>
                     </thead>
                     <tbody>                
-                      <?php while ($donnees = $req->fetch())
+                      <?php while ($donnees = $commentaireSignaler->fetch())
                         {  echo "<tr>";
                             echo "<td>";
                             echo nl2br(htmlspecialchars($donnees['auteur']));
@@ -95,11 +106,18 @@ if($_SESSION['pseudo']== "admin"){
                             echo nl2br(htmlspecialchars($donnees['commentaire']));
                             echo "</td>";
                             echo "<td>";
-                      ?> <a href="supprimerCommentaire.php?commentaire=<?php echo $donnees['id'];?>" class="btn btn-default"><span class="glyphicon glyphicon-trash" style="color: red;"></span></a>
+                      ?><form method= "post" action = "commentaireSignaler.php?comsupprimer=<?=$donnees['id'];?>">
+                         <button type = "submit" ><span class="glyphicon glyphicon-trash" style="color: red;"></span>
+                        <!-- <a href="supprimerCommentaire.php?commentaire=<?php //echo $donnees['id'];?>" class="btn btn-default"><span class="glyphicon glyphicon-trash" style="color: red;"></span></a> -->
+                        </form>
                       <?php
                             echo "</td>";
                             echo "<td>";
-                            ?> <a href="ignorerCommentaire.php?commentaire=<?php echo $donnees['id'];?>" class="btn btn-default"><span class="glyphicon glyphicon-ok" style="color: green;"></span></a>
+                            ?> 
+                            <form method= "post" action = "commentaireSignaler.php?comignorer=<?=$donnees['id'];?>">
+                            <button type = "submit" ><span class="glyphicon glyphicon-ok" style="color: green;"></span>
+                            <!-- <a href="ignorerCommentaire.php?commentaire=<?php echo $donnees['id'];?>" class="btn btn-default"><span class="glyphicon glyphicon-ok" style="color: green;"></span></a> -->
+                            </form>
                       <?php 
                             echo "</td>";
                             echo "</tr>";
