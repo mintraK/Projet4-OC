@@ -15,13 +15,14 @@ $commentaires =  $commentaireManager->getList($billet->id());
 
 //pour pouvoir signaler 
  if(isset($_POST['idCommentaire'])){
-    // $signalerCommentaireManager = new CommentaireManager();
+     $signalerCommentaireManager = new CommentaireManager();
 
     //  $dataCommentaire = $signalerCommentaireManager->getCommentaire($_POST['idCommentaire']);
-        echo "teeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
-       echo $_POST['idCommentaire'];
+    //     echo "teeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
+   
     
-     //$signalerCommentaireManager->signaler($_POST['idCommentaire']);
+    $signalerCommentaireManager->signaler($_POST['idCommentaire']);
+    header("Location:commentaires.php?billet=".$_GET['billet']);
 // $req2 = $bdd->prepare('UPDATE commentaires SET signaler =1 WHERE id = ?');
 // $req2->execute(array($_POST['idCommentaire']));
 // // $_POST['idCommentaire'] = NULL;
@@ -83,6 +84,8 @@ $commentaires =  $commentaireManager->getList($billet->id());
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
         <style type="text/css">
             .page{
                 overflow:hidden;
@@ -112,7 +115,7 @@ $commentaires =  $commentaireManager->getList($billet->id());
                 <?php include("menu.php"); ?>
             </header>
             <br/><br/><br/>
-            <p><a href="index.php">Retour à la liste des billets</a></p>
+            <p><a href="tousLesArticles.php">Retour à la liste des billets</a></p>
     
             <div class = "row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style = "margin:20px;"> 
@@ -132,10 +135,11 @@ $commentaires =  $commentaireManager->getList($billet->id());
                             <p><strong>
                                 <div class="panel panel-info">
                                     <div class="panel-heading">
-                                        <form method= "post" action = "commentaires.php?billet=<?=$_GET['billet'] ; ?>">
+                                        <form method= "post" action = "commentaires.php?billet=<?=$_GET['billet'];?>">
                                             <h3 class="panel-title"><?= htmlspecialchars($donnees['auteur']); ?></h3>
-                                            <input type = "hidden" name = "idCommentaire" value =  "<?= $donnees['id']; ?>" />
-                                            </strong> le <?= $donnees['date_commentaire_fr']; ?>  <button type = "submit" style="color:red;" ><abbr title="Signaler"><span class="glyphicon glyphicon-exclamation-sign"></span></abbr></a>
+                                            <input type = "hidden" name = "idCommentaire" value =  "<?=$donnees['id']; ?>" />
+                                            </strong> le <?= $donnees['date_commentaire_fr']; ?>  <button type = "submit" style="color:red;" ><abbr title="Signaler"><span class="glyphicon glyphicon-exclamation-sign"></span></abbr>
+                                        </form>
                                     </div></p> 
                                     <p><div class="panel-body"><?= nl2br(htmlspecialchars($donnees['commentaire'])); ?></div></p></div>
                         <?php } ?>
