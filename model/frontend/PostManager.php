@@ -1,7 +1,7 @@
 <?php
 // require "Manager.php";
 require_once("model/frontend/Manager.php"); 
-require_once("admin/Billet.php"); 
+require_once("admin/model/Billet.php"); 
 // require "../../admin/Billet.php";
 class PostManager extends Manager
 {
