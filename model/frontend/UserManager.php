@@ -1,7 +1,7 @@
 <?php
 
 require_once('model/frontend/Manager.php');
-require_once("admin/User.php"); 
+require_once("admin/model/User.php"); 
 class UserManager extends Manager
 {
     public function userLogin($pseudo)
