@@ -1,4 +1,4 @@
-<?php $title = htmlspecialchars($post->titre()); ?>
+<?php $title = $post->titre(); ?>
 
 <?php ob_start(); ?>
 <div class = "page">
@@ -6,7 +6,7 @@
     <header>                
         <?php include("menu.php"); ?>
     </header>
-    <p><a href="index.php">Retour à la liste des billets</a></p>
+    <p><a href="index.php?action=listPosts">Retour à la liste des billets</a></p>
     <div class="contenu-page">
     
             <div class = "row">
