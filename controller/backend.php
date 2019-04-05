@@ -3,7 +3,17 @@
 // Chargement des classes
  require_once('model/frontend/PostManager.php');
  require_once('model/frontend/CommentManager.php');
+function reportComment(){
 
+    if(isset($_POST['idCommentaire'])){
+        $CommentManager = new CommentManager();
+        $CommentManager->addReportComment($_POST['idCommentaire']);
+       
+       
+        header("Location:index.php?action=post&id=".$_GET['idPost']);
+    //header("Location:index.php");
+    }
+}
 function logoutUser()
 {
     $_SESSION = array();
