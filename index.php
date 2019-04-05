@@ -37,6 +37,9 @@ try {
             else {
                 throw new Exception('Aucun identifiant de billet envoyé');
             }
+        }
+        if ($_GET['action'] == 'reportComment') {
+            reportComment();
         } 
         elseif ($_GET['action'] == 'logout') {
             if(isset($_SESSION['pseudo'])){
