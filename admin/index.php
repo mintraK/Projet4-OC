@@ -10,8 +10,19 @@ try {
                     editArticle($_GET['id']);
                 }
                  
+            }
+            else if ($_GET['action'] == 'addArticle') {
+                    addArticle();
             }  
-
+            else if ($_GET['action'] == 'reportComment') {
+                    reportComment();
+            }
+            else if ($_GET['action'] == 'deleteComment') {
+                    deleteComment();
+            }
+            else if ($_GET['action'] == 'ignoreComment') {
+                    ignoreComment();
+        }      
         }
         else {
             dashBord();  
