@@ -27,9 +27,9 @@
                             <p><strong>
                                 <div class="panel panel-info">
                                     <div class="panel-heading">
-                                        <form method= "post" action = "index.php?action=addComment&amp;id=<?= $post->id(); ?>">
+                                        <form method= "post" action = "index.php?action=reportComment&amp;idComment=<?= $comment['id']; ?>&amp;idPost=<?= $comment['id_billet']?>">
                                             <h3 class="panel-title"><?= htmlspecialchars($comment['auteur']); ?></h3>
-                                            <input type = "hidden" name = "idCommentaire" value =  "<?=$$comment['id']; ?>" />
+                                            <input type = "hidden" name = "idCommentaire" value =  "<?= $comment['id']; ?>" />
                                             </strong> le <?= $comment['date_commentaire_fr']; ?>  <button type = "submit" style="color:red;" ><abbr title="Signaler"><span class="glyphicon glyphicon-exclamation-sign"></span></abbr>
                                         </form>
                                     </div></p> 
