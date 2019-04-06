@@ -10,11 +10,10 @@
    
     <section class = "detail">
         <div class="row">
-            <?php include("menuverticale.php"); ?>
-
-                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-                
-                    <table class="table table-bordered table-striped table-condensed">
+            <?php include("menuverticale.php"); ?>  
+                <!-- <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8"> -->
+                 <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 mr-1">
+                    <table class="table table-bordered table-striped table-condensed table-responsive">
                         <caption>
                             <h4>Les articles</h4>
                         </caption>
@@ -38,8 +37,9 @@
                             </tr>
                             <?php } ?>
                         </tbody>
-                    </table>   
-                </div>
+                    </table>
+                </div>   
+                <!-- </div> -->
         </div><!--div de row-->
     
     </section>
