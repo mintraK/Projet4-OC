@@ -34,10 +34,10 @@ function post()
 function addComment($postId, $author, $comment)
 {
     $commentManager = new CommentManager();
+   
+    $addComment = $commentManager->postComment($postId, $author, $comment);
 
-    $affectedLines = $commentManager->postComment($postId, $author, $comment);
-
-    if ($affectedLines === false) {
+    if ($addComment === false) {
         throw new Exception('Impossible d\'ajouter le commentaire !');
     }
     else {
