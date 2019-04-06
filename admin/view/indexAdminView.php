@@ -28,13 +28,13 @@
                         </tr>
                         </thead>
                         <tbody>
-                            <?php while ($donnees = $posts->fetch()){ ?>
+                            <?php foreach ($posts as $donnees){ ?>
                             <tr>
-                                <td><?= htmlspecialchars($donnees['titre']); ?></td>
-                                <td><?= nl2br($donnees['contenu'])?></td>
-                                <td><a href="../index.php?action=post&amp;id=<?= $donnees['id'];?>">Lien</a></td>
-                                <td><a href="index.php?action=editArticle&amp;id=<?= $donnees['id'] ?>" class="btn btn-default"><span class="glyphicon glyphicon-pencil" style="color: green;"></span></a> </td>
-                                <td><a href="supprime.php?billet=<?= $donnees['id'] ?>" class="btn btn-default"><span class="glyphicon glyphicon-trash" style="color: red;"></span></a> </td>
+                                <td><?= htmlspecialchars($donnees->titre()); ?></td>
+                                <td><?= nl2br($donnees->contenu()); ?></td>
+                                <td><a href="../index.php?action=post&amp;id=<?= $donnees->id(); ?>">Lien</a></td>
+                                <td><a href="index.php?action=editArticle&amp;id=<?= $donnees->id(); ?>" class="btn btn-default"><span class="glyphicon glyphicon-pencil" style="color: green;"></span></a> </td>
+                                <td><a href="supprime.php?billet=<?= $donnees->id(); ?>" class="btn btn-default"><span class="glyphicon glyphicon-trash" style="color: red;"></span></a> </td>
                             </tr>
                             <?php } ?>
                         </tbody>
