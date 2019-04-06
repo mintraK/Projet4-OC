@@ -33,7 +33,7 @@
     }
       [class*="col"] { margin-bottom: 20px; }
       img { width: 100%; }
-       body { margin-top: 10px; }
+       /* body { margin-top: 10px; } */
        .fa {
   
             
@@ -43,6 +43,9 @@
   text-align: center;
   text-decoration: none;
 }
+/* .mr-1{
+    padding-right: ($spacer * .5) !important;
+} */
             /* .fa-facebook {
             color:white;
             color: white;
