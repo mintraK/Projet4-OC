@@ -42,15 +42,17 @@ class CommentManager extends Manager
     public function deleteComment($commentId){
         $db = $this->dbConnect(); 
         $req= $db->prepare('DELETE FROM commentaires WHERE id = :id');
-        $req->execute(array(
+        $isDelete = $req->execute(array(
         'id' => $commentId));
+        return $isDelete;
     }
     public function ignoreComment($commentId){
         $db = $this->dbConnect(); 
         $req= $db->prepare('UPDATE commentaires SET signaler=0 WHERE id = :id');
-        $req->execute(array(
+        $isIgnore = $req->execute(array(
             'id' => $_GET['commentId']
         ));
+        return $isIgnore;
     }
     public function dbConnect()
     {
