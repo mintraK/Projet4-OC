@@ -39,37 +39,24 @@
             </div>
             
             <div class = "row">
-            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 "> </div>
-                <div class="col-xs-6 col-sm-6 col-md-8  col-lg-8 "> 
-                        <?php if(isset($_SESSION['pseudo'])){
-                        ?>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 "> </div>
+                <div class="col-xs-6 col-sm-6 col-md-6  col-lg-6 "> 
                         <form class="form-group" method = "post" action = "index.php?action=addComment&amp;id=<?= $post->id(); ?>">
                             <fieldset>
-
-                                <!-- Form Name -->
-                                <legend class="text-center"> <h2>Ajouter un commentaires</h2></legend>
-
-
-                                    <!-- Textarea -->
-                                    <div class="form-horizontal form-group">
-                                        <label class="col-md-4  control-label" for="textarea"><?= $_SESSION['pseudo'];?></label>
-                                        <div class="col-md-6">                     
-                                            <textarea class="form-control" id="textarea" name="comment" placeholder = "Commentaire"></textarea>
-                                        </div>
+                                <legend class="text-center"> <h2>Ajouter un commentaire</h2></legend>
+                                    <div class="form-group">   
+                                        <label class="control-label" for="textinput">Prénom</label>
+                                        <input id="textinput" name="author" type="text" placeholder="<?= $_SESSION['pseudo'];?>" class="form-control input-md"> 
                                     </div>
-
-                                    <!-- Button -->
                                     <div class="form-group">
-                                        <div class="col-md-12 text-center" style = "margin-top:20px;margin-bottom:10px;">
-                                            <button id="Envoyer" type = "submit" name="envoyerCommentaire" class="btn btn-primary">Envoyer</button>
-                                        </div>
+                                        <label class="control-label" for="textarea">Commentaire</label>
+                                        <textarea class="form-control" id="textarea" name="comment" placeholder = "Commentaire"></textarea>
                                     </div>
-
+                                    <div class="form-group text-center">
+                                        <button id="Envoyer" type = "submit" name="envoyerCommentaire" class="btn btn-primary">Envoyer</button> 
+                                        </div>
                             </fieldset>
                         </form>
-
-                        
-                        <?php }?>
                     </div>
             </div>
         <section class = "pied">
