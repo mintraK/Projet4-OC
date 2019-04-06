@@ -38,20 +38,27 @@ if (isset($_FILES['mon_fichier']) && $_FILES['mon_fichier']['error'] === UPLOAD_
           'contenu' => $contenu
         ]);
         $postManager->addArticle($post);
-        echo "add";
+        if($isadd = 0)
+        {
+          throw new Exception("Impossible d'ajouter un articles");
+        }
     
       }
     } 
   }
 else 
-  {
+  { 
     // Ajout Contenue Sans imgae 
     $postManager = new PostManager();
     $post = new Billet([
       'titre' => $titre,
       'contenu' => $contenu
     ]);
-    $postManager->addArticle($post);
+    $isadd =  $postManager->addArticle($post);
+    if($isadd == 0)
+    {
+      throw new Exception("Impossible d'ajouter un articles");
+    }
 
   }
 //   header("Location:index.php");
