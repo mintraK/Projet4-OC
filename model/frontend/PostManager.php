@@ -13,10 +13,14 @@ class PostManager extends Manager
         return new Billet($data);
     }
     public function getListPosts(){
-        
         $db = $this->dbConnect();
         $req = $db->query('SELECT id, titre, photo, contenu, DATE_FORMAT(date_creation, \'%d/%m/%Y à %Hh%imin%ss\') AS datecreation FROM billets ORDER BY date_creation DESC');
-        return $req;
+        while( $data = $req->fetch()){     
+                $post = new Billet($data); 
+                $allPost[] = $post; 
+        }
+        return  $allPost;
+       
     }
 
     public function getPost($postId)
