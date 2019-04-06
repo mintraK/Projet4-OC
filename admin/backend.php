@@ -22,10 +22,19 @@ if($_SESSION['pseudo']== "admin"){
         if(isset($_POST['titre'])){
             $post->setTitre($_POST['titre']);
             $post->setContenu($_POST['contenu']);
-            $postManager->editArticle($post);
-            header("Location:index.php");
+           $isedit = $postManager->editArticle($post);
+           
+            if ($isedit == 1)
+            {
+                header("Location:index.php");
+            }
+            else 
+            {
+                throw new Exception('Impossible de éditer le billet!');
+            }
+           
         }
-
+       
     }
     function addArticle(){
         require('model/modelAddArticle.php');
@@ -41,22 +50,29 @@ if($_SESSION['pseudo']== "admin"){
        
         if(isset($_GET['commentId'])){
             $deleteComment = new CommentManager();
-            $deleteComment->deleteComment($_GET['commentId']);
-            header("Location:index.php?action=reportComment");
+            $isDelete = $deleteComment->deleteComment($_GET['commentId']);
+           
+            if($isDelete==1){
+                 header("Location:index.php?action=reportComment");
+            }
+            else{
+                 throw new Exception('Impossible de supprimer !');
+            }
         }
-        else{
-            throw new Exception('Pas de IdCommentaire !');
-        }      
+           
     }
     function  ignoreComment(){
         if(isset($_GET['commentId'])){
             $commentManager = new CommentManager();
-            $commentManager->ignoreComment($_GET['commentId']);
-            header("Location:index.php?action=reportComment");
+            $isIgnore = $commentManager->ignoreComment($_GET['commentId']);
+            if($isIgnore==1){
+                header("Location:index.php?action=reportComment");
+            }
+            else{
+                throw new Exception('Pas de IdCommentaire !');
+            } 
         }
-        else{
-            throw new Exception('Pas de IdCommentaire !');
-        } 
+        
     }
 }
 else 
