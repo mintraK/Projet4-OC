@@ -12,7 +12,7 @@
         <div class="row">
             <?php include("menuverticale.php"); ?>  
                 <!-- <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8"> -->
-                 <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 mr-1">
+                 <div class="col-md-8 col-lg-8">
                     <table class="table table-bordered table-striped table-condensed table-responsive">
                         <caption>
                             <h4>Les articles</h4>
