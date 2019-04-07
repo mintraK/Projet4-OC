@@ -1,6 +1,6 @@
  
  
-    <div class="col-xs-8 col-sm-8 col-md-3 col-lg-3 ">                
+    <div class="col-xs-11 col-sm-11 col-md-3 col-lg-3 ">                
                 <ul class="nav navbar-inverse  flex-column text-center">
                      <li class="nav-item ">
                          <a class="nav-link active" href="index.php">Tous les Articles</a>
