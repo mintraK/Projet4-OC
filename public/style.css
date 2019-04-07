@@ -1,0 +1,83 @@
+.page{
+    overflow:hidden;
+}
+.container-fluid{
+    height: 50px;
+}
+#panneau{
+    margin-top:-20px;
+}
+.contenu-page{
+    margin-left:4%;
+    margin-right:4%;
+
+}
+p{
+    padding-left: 2%;
+    padding-right: 2%;
+}
+.news{
+    margin-left:1%;
+    margin-right: 1%;
+}
+.row{
+    margin-left:1%;
+    margin-right: 1%;
+}
+[class*="col"] { margin-bottom: 20px; }
+img { width: 100%; }
+  
+.fa {        
+padding: 20px;
+font-size: 30px;
+width: 50px;
+text-align: center;
+text-decoration: none;
+}
+/* .mr-1{
+padding-right: ($spacer * .5) !important;
+} */
+        /* .fa-facebook {
+        color:white;
+        color: white;
+
+        }   */
+    
+@media all and (max-width: 768px){
+    .container-fluid{
+        height: 100%;
+    }
+
+    /*ul .nav{
+         display:flex;
+		flex-direction:row; 
+    } */
+    /* .row{
+        display:flex;
+		flex-direction:column; 
+    } */
+    table thead{
+		/* enlevée des titre des colonnes de tableau*/
+		display:none;
+		/* display:flex;
+		flex-direction:column; */
+    }
+    tbody{
+        border: none;
+        border-color: black;
+    }
+    table tr,td{
+        display:block;
+        text-align: center;
+    }
+    tr{
+        width: 90%;
+		border:1px solid silver;
+		border-radius:12px;
+		margin-bottom:4px;
+    }
+    /* .table-bordered>tbody>tr>td {
+        border: none;
+    } */
+
+}
