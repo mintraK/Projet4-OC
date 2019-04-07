@@ -18,7 +18,6 @@
                     <label class="control-label" for="textinput">Pseudo</label>  
                     <div class="">
                     <input id="textinput" name="pseudo" type="text" placeholder="Pseudo" class="form-control input-md">
-                    <span class="help-block">help</span>  
                     </div>
                     </div>
 
@@ -27,7 +26,6 @@
                     <label class="control-label" for="passwordinput">Mot de passe</label>
                     <div class="">
                         <input id="passwordinput" name="pwd" type="password" placeholder="Mot de passe" class="form-control input-md">
-                        <span class="help-block">help</span>
                     </div>
                     </div>
 
