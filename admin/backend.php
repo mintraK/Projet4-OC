@@ -5,13 +5,11 @@ if($_SESSION['pseudo']== "admin"){
     require_once('model/PostManager.php');
     require_once('model/CommentManager.php');
 
-
     function  dashBord(){
         
         $postManager = new PostManager(); 
         $posts = $postManager->getListPosts(); 
         require('view/indexAdminView.php');
-
     }
     function editArticle($postId){
 
@@ -46,12 +44,12 @@ if($_SESSION['pseudo']== "admin"){
             $isDelete = $postManager->deleteArticle($_GET['id']);
             $commentManager = new CommentManager();
             $isDelete2 = $commentManager->deleteCommentOfArticle($_GET['id']);
-                if($isDelete==1 && $isDelete2==1){
-                    header("Location:index.php");
-                }
-                else{
-                    throw new Exception('Impossible de supprimer le billet!');
-                }
+            if($isDelete==1 && $isDelete2==1){
+                header("Location:index.php");
+            }
+            else{
+                throw new Exception('Impossible de supprimer le billet!');
+            }
         }
         else{
             throw new Exception('Aucun numéro de billet donné !');
@@ -75,8 +73,7 @@ if($_SESSION['pseudo']== "admin"){
             else{
                  throw new Exception('Impossible de supprimer !');
             }
-        }
-           
+        }      
     }
     function  ignoreComment(){
         if(isset($_GET['commentId'])){
@@ -88,8 +85,7 @@ if($_SESSION['pseudo']== "admin"){
             else{
                 throw new Exception('Pas de IdCommentaire !');
             } 
-        }
-        
+        } 
     }
 }
 else 
