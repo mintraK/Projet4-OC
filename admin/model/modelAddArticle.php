@@ -1,5 +1,4 @@
 <?php
-// On démarre la session AVANT d'écrire du code HTML
 session_start();
 
 if(isset($_POST['titre'])){
@@ -7,11 +6,10 @@ if(isset($_POST['titre'])){
   $titre =  $_POST['titre'];
   $contenu =   $_POST['contenu'];
 
-
-  // Ajout contenu avec Imge
+// Ajout contenu avec Image
 //ajouter une photo
 if (isset($_FILES['mon_fichier']) && $_FILES['mon_fichier']['error'] === UPLOAD_ERR_OK) {
-  // get details of the uploaded file
+
   $fileTmpPath = $_FILES['mon_fichier']['tmp_name'];
   $fileName = $_FILES['mon_fichier']['name'];
   $fileSize = $_FILES['mon_fichier']['size'];
@@ -19,22 +17,18 @@ if (isset($_FILES['mon_fichier']) && $_FILES['mon_fichier']['error'] === UPLOAD_
   $fileNameCmps = explode(".", $fileName);
   $fileExtension = strtolower(end($fileNameCmps));
 
-
-
   $ExtensionsAutorise = array('jpg', 'png');
   if (in_array($fileExtension, $ExtensionsAutorise)) {
       $newFileName = $fileName;
-      $uploadFileDir = '../images/';
+      $uploadFileDir = '../public/images/';
       $dest_path = $uploadFileDir . $newFileName;
       
       if(move_uploaded_file($fileTmpPath, $dest_path))
       {
-        // Metre ds sql
-       
         $postManager = new PostManager();
         $post = new Billet([
           'titre' => $titre,
-          'photo' => 'images/'.$newFileName,
+          'photo' => 'public/images/'.$newFileName,
           'contenu' => $contenu
         ]);
         $postManager->addArticle($post);
@@ -61,6 +55,5 @@ else
     }
 
   }
-//   header("Location:index.php");
-
+   header("Location:index.php");
 }
