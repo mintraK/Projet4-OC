@@ -38,12 +38,20 @@ class CommentManager extends Manager
         }
         return $allcomment;
     
-    }  
+    }
+    public function deleteCommentOfArticle($postId){
+        $db = $this->dbConnect();
+        $req= $db->prepare('DELETE FROM commentaires WHERE id_billet = :id');
+        $isDelete = $req->execute(array(
+            'id' => $postId
+        ));
+        return $isDelete;
+    } 
     public function deleteComment($commentId){
         $db = $this->dbConnect(); 
         $req= $db->prepare('DELETE FROM commentaires WHERE id = :id');
         $isDelete = $req->execute(array(
-        'id' => $commentId));
+            'id' => $commentId));
         return $isDelete;
     }
     public function ignoreComment($commentId){
