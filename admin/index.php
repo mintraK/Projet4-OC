@@ -13,6 +13,9 @@ try {
             }
             else if ($_GET['action'] == 'addArticle') {
                     addArticle();
+            }
+            else if ($_GET['action'] == 'deleteArticle') {
+                    deleteArticle();
             }  
             else if ($_GET['action'] == 'reportComment') {
                     reportComment();
