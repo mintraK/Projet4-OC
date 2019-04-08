@@ -14,7 +14,6 @@ class UserManager extends Manager
         
         $user = $req->fetch();
          return new User($user);
-        //return $user;
         }
     public function userExist($pseudo, $mail){
         $db = $this->dbConnect();
@@ -34,13 +33,13 @@ class UserManager extends Manager
     {
         $db = $this->dbConnect();
         $req = $db->prepare('INSERT INTO membres(pseudo, pwd, mail, dateConnexion) VALUES(:pseudo, :pass, :mail, CURDATE())');
-        $req->execute(array(
+        $isCreate = $req->execute(array(
             'pseudo' => $pseudo,
             'pass' => $password_hache,
             'mail' => $mail
         ));
+        return $isCreate;
     }
-
      public function dbConnect()
     {
         $db = new PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', 'root');
