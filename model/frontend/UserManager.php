@@ -1,13 +1,22 @@
 <?php
-
-require_once('model/frontend/Manager.php');
 require_once("admin/model/User.php"); 
-class UserManager extends Manager
+class UserManager 
 {
+    private $_db;
+
+    public function __construct(){
+        try
+        {
+            $this->_db = new PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', 'root');
+        }
+        catch(Exception $e)
+        {
+            die('Erreur : '.$e->getMessage());
+        }
+    }
     public function userLogin($pseudo)
     {
-        $db = $this->dbConnect();
-        $req = $db->prepare('SELECT * FROM membres WHERE pseudo = :pseudo');
+        $req = $this->_db->prepare('SELECT * FROM membres WHERE pseudo = :pseudo');
         $req->execute(array(
             'pseudo' => $pseudo
         ));
@@ -16,8 +25,8 @@ class UserManager extends Manager
          return new User($user);
         }
     public function userExist($pseudo, $mail){
-        $db = $this->dbConnect();
-        $req = $db->prepare('SELECT pseudo, mail FROM membres WHERE  pseudo = :pseudo OR mail = :mail');
+       
+        $req = $this->_db->prepare('SELECT pseudo, mail FROM membres WHERE  pseudo = :pseudo OR mail = :mail');
         $req->execute(array(
          'pseudo' => $pseudo,
          'mail' => $mail));
@@ -31,8 +40,7 @@ class UserManager extends Manager
     }
     public function createUser($pseudo, $password_hache, $mail)
     {
-        $db = $this->dbConnect();
-        $req = $db->prepare('INSERT INTO membres(pseudo, pwd, mail, dateConnexion) VALUES(:pseudo, :pass, :mail, CURDATE())');
+        $req = $this->_db->prepare('INSERT INTO membres(pseudo, pwd, mail, dateConnexion) VALUES(:pseudo, :pass, :mail, CURDATE())');
         $isCreate = $req->execute(array(
             'pseudo' => $pseudo,
             'pass' => $password_hache,
@@ -40,9 +48,5 @@ class UserManager extends Manager
         ));
         return $isCreate;
     }
-     public function dbConnect()
-    {
-        $db = new PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', 'root');
-        return $db;
-    }
+    
 }
