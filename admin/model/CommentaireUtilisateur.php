@@ -54,29 +54,22 @@ class CommentaireUtilisateur{
         }
         //fonction pour setter
         public function setid($id){
-            $this->_id = $id;
-           
+            $this->_id = $id; 
         } 
-        
         public function setIdBillet($idBillet){
-            $this->_id_Billet = $idBillet;
-           
+            $this->_id_Billet = $idBillet; 
         }
         public function setAuteur($auteur){
-            $this->_auteur = $auteur;
-           
+            $this->_auteur = $auteur;   
         }
         public function setCommentaire($commentaire){
-            $this->_commentaire = $commentaire;
-           
+            $this->_commentaire = $commentaire;  
         }
         public function setSignaler($signaler){
-            $this->_signaler = $signaler;
-           
+            $this->_signaler = $signaler; 
         }
-        public function setDateCreation($dateCommentaire){
-            $this->_date_commentaire = $dateCommentaire;
-           
+        public function setDateCommentaire($dateCommentaire){
+            $this->_date_commentaire = $dateCommentaire; 
         }
         
     
