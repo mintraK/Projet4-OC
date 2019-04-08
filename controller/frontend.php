@@ -20,8 +20,12 @@ function post()
     $commentManager = new CommentManager();
     $post = $postManager->getPost($_GET['id']);
     $comments = $commentManager->getComments($_GET['id']);
-    require('view/frontend/postView.php');
-   
+    if(empty($post)&& empty($comments)){
+        throw new Exception('Aucun billet ou commentaire(s) trouvé(s) !');
+    }
+    else{
+        require('view/frontend/postView.php');
+    } 
 }
 
 function addComment($postId, $author, $comment)
