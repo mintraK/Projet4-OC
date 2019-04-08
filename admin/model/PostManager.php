@@ -55,7 +55,7 @@
         $db = $this->dbConnect();
         $req = $db->prepare('DELETE FROM billets WHERE id = :id');
         $isDelete = $req->execute(array(
-        'id' => $postid));
+        'id' => $postId));
         return $isDelete;
     }
     public function dbConnect()
