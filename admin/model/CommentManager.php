@@ -1,13 +1,23 @@
 <?php
-require_once("model/Manager.php"); 
 require_once("CommentaireUtilisateur.php"); 
 
 class CommentManager extends Manager
 {
+    private $_db;
+
+    public function __construct(){
+        try
+        {
+            $this->_db = new PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', 'root');
+        }
+        catch(Exception $e)
+        {
+            die('Erreur : '.$e->getMessage());
+        }
+    }
     public function reportComment(){
     
-        $db = $this->dbConnect();
-        $req = $db->prepare('SELECT id, auteur, commentaire  FROM commentaires WHERE signaler = 1 ');
+        $req = $this->_db->prepare('SELECT id, auteur, commentaire  FROM commentaires WHERE signaler = 1 ');
         $req->execute();
         
         while($donnees = $req->fetch())
@@ -19,8 +29,8 @@ class CommentManager extends Manager
     
     }
     public function deleteCommentOfArticle($postId){
-        $db = $this->dbConnect();
-        $req= $db->prepare('DELETE FROM commentaires WHERE id_billet = :id');
+       
+        $req= $this->_db->prepare('DELETE FROM commentaires WHERE id_billet = :id');
         $isDelete = $req->execute(array(
             'id' => $postId
         ));
@@ -28,24 +38,17 @@ class CommentManager extends Manager
     } 
     public function deleteComment($commentId){
         
-        $db = $this->dbConnect(); 
-        $req= $db->prepare('DELETE FROM commentaires WHERE id = :id');
+        $req= $this->_db->prepare('DELETE FROM commentaires WHERE id = :id');
         $isDelete = $req->execute(array(
             'id' => $commentId));
         return $isDelete;
     }
     public function ignoreComment($commentId){
 
-        $db = $this->dbConnect(); 
-        $req= $db->prepare('UPDATE commentaires SET signaler=0 WHERE id = :id');
+        $req= $this->_db->prepare('UPDATE commentaires SET signaler=0 WHERE id = :id');
         $isIgnore = $req->execute(array(
             'id' => $_GET['commentId']
         ));
         return $isIgnore;
-    }
-    public function dbConnect()
-    {
-        $db = new PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', 'root');
-        return $db;
     }
 }
