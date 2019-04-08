@@ -1,6 +1,6 @@
 <?php 
 class Billet{
-    private $_id;
+        private $_id;
         private $_titre;
         private $_photo;
         private $_contenu; 
@@ -46,25 +46,18 @@ class Billet{
         }
         //fonction pour setter
         public function setId($id){
-            $this->_id = $id;
-           
+            $this->_id = $id;  
         }
         public function setTitre($titre){
             $this->_titre = $titre;
-           
         }
         public function setPhoto($photo){
-            $this->_photo = $photo;
-           
+            $this->_photo = $photo;  
         }
         public function setContenu($contenu){
-            $this->_contenu = $contenu;
-           
+            $this->_contenu = $contenu;  
         }
         public function setDateCreation($dateCreation){
-            $this->_datecreation = $dateCreation;
-           
+            $this->_datecreation = $dateCreation;   
         }
-        
-    
 }
