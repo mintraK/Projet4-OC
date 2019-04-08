@@ -39,7 +39,13 @@ try {
             }
         }
         if ($_GET['action'] == 'reportComment') {
-            reportComment();
+            if (isset($_GET['idPost']) && $_GET['idPost'] > 0){
+                reportComment();
+            }
+            else{
+                throw new Exception('Aucun identifiant de chapitre envoyé!');
+            }
+           
         } 
         elseif ($_GET['action'] == 'logout') {
             if(isset($_SESSION['pseudo'])){
