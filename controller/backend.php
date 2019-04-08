@@ -7,8 +7,13 @@ function reportComment(){
     if(isset($_POST['idCommentaire']))
     {
         $CommentManager = new CommentManager();
-        $CommentManager->addReportComment($_POST['idCommentaire']);  
-        header("Location:index.php?action=post&id=".$_GET['idPost']);
+        $isaddReport = $CommentManager->addReportComment($_POST['idCommentaire']); 
+        if($isaddReport == 1){
+            header("Location:index.php?action=post&id=".$_GET['idPost']);
+        }
+        else {
+            throw new Exception('Impossible de signaler ce commentaire ' );
+        }
     }
 }
 function logoutUser()
