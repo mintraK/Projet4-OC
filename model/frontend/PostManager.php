@@ -1,18 +1,27 @@
 <?php
-require_once("model/frontend/Manager.php"); 
 require_once("admin/model/Billet.php"); 
-class PostManager extends Manager
-{
+class PostManager 
+{   
+    private $_db;
+    public function __construct(){
+        try
+        {
+            $this->_db = new PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', 'root');
+        }
+        catch(Exception $e)
+        {
+            die('Erreur : '.$e->getMessage());
+        }
+    }
     public function getLastPost()
     {
-        $db = $this->dbConnect();
-        $req = $db->query('SELECT id, titre,photo, contenu, DATE_FORMAT(date_creation, \'%d/%m/%Y à %Hh%imin%ss\') AS datecreation FROM billets ORDER BY date_creation DESC LIMIT 0, 1');
+        $req = $this->_db->query('SELECT id, titre,photo, contenu, DATE_FORMAT(date_creation, \'%d/%m/%Y à %Hh%imin%ss\') AS datecreation FROM billets ORDER BY date_creation DESC LIMIT 0, 1');
         $data = $req->fetch();
         return new Billet($data);
     }
     public function getListPosts(){
-        $db = $this->dbConnect();
-        $req = $db->query('SELECT id, titre, photo, contenu, DATE_FORMAT(date_creation, \'%d/%m/%Y à %Hh%imin%ss\') AS datecreation FROM billets ORDER BY date_creation DESC');
+       
+        $req = $this->_db->query('SELECT id, titre, photo, contenu, DATE_FORMAT(date_creation, \'%d/%m/%Y à %Hh%imin%ss\') AS datecreation FROM billets ORDER BY date_creation DESC');
         while( $data = $req->fetch()){     
                 $post = new Billet($data); 
                 $allPost[] = $post; 
@@ -22,17 +31,11 @@ class PostManager extends Manager
 
     public function getPost($postId)
     {
-        $db = $this->dbConnect();
-        $req = $db->prepare('SELECT id, titre, photo, contenu, DATE_FORMAT(date_creation, \'%d/%m/%Y à %Hh%imin%ss\') AS datecreation FROM billets WHERE id = ?');
+        $req = $this->_db->prepare('SELECT id, titre, photo, contenu, DATE_FORMAT(date_creation, \'%d/%m/%Y à %Hh%imin%ss\') AS datecreation FROM billets WHERE id = ?');
         $req->execute([
             $postId
         ]);
         $data = $req->fetch();
         return new Billet($data); 
-    }
-    public function dbConnect()
-    {
-        $db = new PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', 'root');
-        return $db;
     }
 }
