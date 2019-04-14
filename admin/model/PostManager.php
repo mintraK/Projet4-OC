@@ -2,21 +2,10 @@
  require_once("Billet.php"); 
  class PostManager
  {
-    private $_db;
-
-    public function __construct(){
-        try
-        {
-            $this->_db = new PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', 'root');
-        }
-        catch(Exception $e)
-        {
-            die('Erreur : '.$e->getMessage());
-        }
-    }
     public function getListPosts(){
-        
-        $req = $this->_db->query('SELECT id, titre, photo, contenu, DATE_FORMAT(date_creation, \'%d/%m/%Y à %Hh%imin%ss\') AS datecreation FROM billets ORDER BY date_creation DESC');
+        $db = $this->dbConnect();
+        $req = $db->prepare('SELECT id, titre, photo, contenu, DATE_FORMAT(date_creation, \'%d/%m/%Y à %Hh%imin%ss\') AS datecreation FROM billets ORDER BY date_creation DESC');
+        $req->execute();
         while( $data = $req->fetch()){     
                 $post = new Billet($data); 
                 $allPost[] = $post; 
@@ -25,8 +14,9 @@
     }
 
     public function getPost($postId)
-    {
-        $req = $this->_db->prepare('SELECT id, titre, photo, contenu, DATE_FORMAT(date_creation, \'%d/%m/%Y à %Hh%imin%ss\') AS datecreation FROM billets WHERE id = ?');
+    {   
+        $db = $this->dbConnect();
+        $req = $db->prepare('SELECT id, titre, photo, contenu, DATE_FORMAT(date_creation, \'%d/%m/%Y à %Hh%imin%ss\') AS datecreation FROM billets WHERE id = ?');
         $req->execute([
             $postId
         ]);
@@ -35,12 +25,12 @@
         
     }
     public function editArticle(Billet $billet){
-       
+        $db = $this->dbConnect();
         $titre =  $billet->titre();
         $photo =   $billet->photo();
         $contenu =   $billet->contenu();
         
-            $req = $this->_db->prepare('UPDATE billets SET titre = :titre, contenu = :contenu, date_creation= NOW() WHERE id = :id ');
+            $req = $db->prepare('UPDATE billets SET titre = :titre, contenu = :contenu, date_creation= NOW() WHERE id = :id ');
             $isEdit =  $req->execute(array(
             'titre' => $titre,
             'contenu' => $contenu,
@@ -50,8 +40,8 @@
     }
 
     public function addArticle(Billet $post){
-       
-        $req = $this->_db->prepare('INSERT INTO billets( titre,photo, contenu, date_creation) VALUES(:titre, :photo,:contenu, NOW())');
+        $db = $this->dbConnect();
+        $req = $db->prepare('INSERT INTO billets( titre,photo, contenu, date_creation) VALUES(:titre, :photo,:contenu, NOW())');
         $isAdd = $req->execute([ 
             'titre' => $post->titre(),
             'photo' => $post->photo(),
@@ -61,11 +51,16 @@
 
     }
     public function deleteArticle($postId){
-       
-        $req = $this->_db->prepare('DELETE FROM billets WHERE id = :id');
+        $db = $this->dbConnect();
+        $req = $db->prepare('DELETE FROM billets WHERE id = :id');
         $isDelete = $req->execute(array(
         'id' => $postId));
         return $isDelete;
+    }
+    public function dbConnect()
+    {
+        $db = new PDO('mysql:host=localhost;dbname=blog;charset=utf8', 'root', 'root');
+        return $db;
     }
     
 }
