@@ -10,7 +10,6 @@
 .contenu-page{
     margin-left:4%;
     margin-right:4%;
-
 }
 p{
     padding-left: 2%;
@@ -34,33 +33,19 @@ width: 50px;
 text-align: center;
 text-decoration: none;
 }
-/* .mr-1{
-padding-right: ($spacer * .5) !important;
-} */
-        /* .fa-facebook {
-        color:white;
-        color: white;
-
-        }   */
-    
+th, td{
+    text-align: center;
+}
+td:nth-child(2) {
+    text-align: left;
+}
+        
 @media all and (max-width: 768px){
     .container-fluid{
         height: 100%;
     }
-
-    /*ul .nav{
-         display:flex;
-		flex-direction:row; 
-    } */
-    /* .row{
-        display:flex;
-		flex-direction:column; 
-    } */
     table thead{
-		/* enlevée des titre des colonnes de tableau*/
 		display:none;
-		/* display:flex;
-		flex-direction:column; */
     }
     tbody{
         border: none;
@@ -68,7 +53,6 @@ padding-right: ($spacer * .5) !important;
     }
     table tr,td{
         display:block;
-        text-align: center;
     }
     tr{
         width: 90%;
@@ -76,8 +60,21 @@ padding-right: ($spacer * .5) !important;
 		border-radius:12px;
 		margin-bottom:4px;
     }
-    /* .table-bordered>tbody>tr>td {
+    .table-bordered>tbody>tr>td {
         border: none;
-    } */
+    }
 
+}
+@media all and (max-width: 480px){
+    body{font-size: 11px;}
+   h1{ font-size: 20px;}
+	h2,
+	h3{
+		font-size: 15px;
+	}
+	p,
+	figure,
+	ul,a, legend{
+		font-size: 13px;
+	}
 }
