@@ -4,15 +4,12 @@ require('controller/frontend.php');
 require('controller/backend.php');
 try {
 // ADMIN
-   if($_SESSION['pseudo'] == "admin"){
-        if ($_GET['action'] == 'dashBord'){          
-                dashBord(); 
-        }  
+    if($_SESSION['pseudo'] == "admin"){
+            if ($_GET['action'] == 'dashBord'){          
+                    dashBord(); 
+            }  
+    }
    
-
-   }
-   
-
     if (isset($_GET['action'])) {
         if ($_GET['action'] == 'listPosts') {
             listPosts();
@@ -22,7 +19,7 @@ try {
                 post();
             }
             else {
-                throw new Exception('Aucun identifiant de billet envoyé');
+                throw new Exception('Aucun identifiant de billet envoyé !');
             }
         }
         elseif ($_GET['action'] == 'addComment') {
@@ -44,28 +41,23 @@ try {
             }
             else{
                 throw new Exception('Aucun identifiant de chapitre envoyé!');
-            }
-           
+            }  
         } 
         elseif ($_GET['action'] == 'logout') {
             if(isset($_SESSION['pseudo'])){
                 logoutUser();
             }
-
         }
         elseif ($_GET['action'] == 'login') {
             if(!(isset($_SESSION['pseudo']))){
                 loginUser();
             }
-
         } 
         elseif ($_GET['action'] == 'register') {
                 register();
-
         }
     }
     else {
-       
         listPost();
     }
 }
