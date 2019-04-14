@@ -10,9 +10,6 @@
                      </li>  
                      <li class="nav-item">
                          <a class="nav-link" href="index.php?action=reportComment">Commentaires signalés</a>
-                    </li>
-                   
-                  
+                    </li>        
                  </ul>
-        
     </div> 
