@@ -15,11 +15,11 @@ $title = "Commentaires signalés"; ?>
                 <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
                   <table class="table table-bordered table-striped table-condensed">
                     <caption>
-                        <h4>Tous les commentaires</h4>
+                        <h4>Tous les commentaires signalés</h4>
                     </caption>
                     <thead>
                       <tr>
-                        <th>titres</th>
+                        <th>auteurs</th>
                         <th>contenus</th>
                         <th>supprimer</th>
                         <th>ignorer</th>
