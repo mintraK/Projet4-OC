@@ -11,13 +11,13 @@
                  <div class="col-md-8 col-lg-8">
                     <table class="table table-bordered table-striped table-condensed table-responsive">
                         <caption>
-                            <h4>Les articles</h4>
+                            <h4>Tous les articles</h4>
                         </caption>
                         <thead>
                         <tr>
                             <th>Titres</th>
                             <th>Contenus</th>
-                            <th>Lien</th>
+                            <th>Liens</th>
                             <th>Modifier</th>
                             <th>Supprimer</th>
                         </tr>
