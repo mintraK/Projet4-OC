@@ -57,7 +57,7 @@ class CommentaireUtilisateur{
             $this->_id = $id; 
         } 
         public function setIdBillet($idBillet){
-            $this->_id_Billet = $idBillet; 
+            $this->_id_billet = $idBillet; 
         }
         public function setAuteur($auteur){
             $this->_auteur = $auteur;   
