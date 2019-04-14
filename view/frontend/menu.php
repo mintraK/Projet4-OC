@@ -7,7 +7,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="index.php"><img src="public/images/logo.jpg" style="width:150px; heigth:80px;" /></a>
+      <a class="navbar-brand" href="index.php"><img src="public/images/logo.jpg" style="width:150px;" alt="logo-du-site" /></a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">    
 <?php     
