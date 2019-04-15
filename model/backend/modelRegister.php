@@ -34,18 +34,14 @@
             {
                 throw new Exception('L\'adresse mail n\'est pas valide !');
             }
-
-    
           } 
           else
           { 
               throw new Exception('Les 2 mots de passe ne sont pas identiques!');
           }
-    
         }
         else {
             throw new Exception('Tous les champs ne sont pas remplis !');
-        }
-        
+        } 
       }   
 ?>
