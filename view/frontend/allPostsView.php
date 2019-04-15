@@ -9,9 +9,9 @@
             <?php foreach ($posts as $donnees) {?>
             <div class="row">
                 <div class="news">
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3"><img src= "<?= $donnees->photo(); ?>" alt="photo-du-billet"/>
+                    <div class="col-xs-12 col-sm-11 col-md-3 col-lg-3"><img src= "<?= $donnees->photo(); ?>" alt="photo-du-billet"/>
                     </div>
-                    <div class="col-xs-9 col-sm-9 col-md-8 col-lg-8">
+                    <div class="col-xs-12 col-sm-11 col-md-8 col-lg-8">
                         <div class="panel panel-primary">
                             <div class="panel-heading">
                                 <h3 class="panel-title"><?= $donnees->titre(); ?></h3>
