@@ -21,13 +21,27 @@ class PostManager
     }
 
     public function getPost($postId)
-    {   $db = $this->dbConnect();
+    {   
+        $db = $this->dbConnect();
         $req = $db->prepare('SELECT id, titre, photo, contenu, DATE_FORMAT(date_creation, \'%d/%m/%Y à %Hh%imin%ss\') AS datecreation FROM billets WHERE id = ?');
         $req->execute([
             $postId
         ]);
-        $data = $req->fetch();
-        return new Billet($data); 
+        $num_of_rows = $req->rowCount() ;
+        if ($num_of_rows > 0)
+        {
+            $data = $req->fetch();
+            return new Billet($data); 
+        }
+        else {
+            $req = $db->prepare('SELECT id, titre, photo, contenu, DATE_FORMAT(date_creation, \'%d/%m/%Y à %Hh%imin%ss\') AS datecreation FROM billets WHERE id = ?');
+            $req->execute([
+                1
+            ]);
+            $data = $req->fetch();
+            return new Billet($data);
+        }
+
     }
     public function dbConnect()
     {
