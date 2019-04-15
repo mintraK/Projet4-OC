@@ -8,7 +8,8 @@
     <section class = "detail">
         <div class="row">
             <?php include("menuverticale.php"); ?> 
-                 <div class="col-md-8 col-lg-8">
+            <div class="col-xs-0 col-sm-0 col-md-1 col-lg-1"></div>
+                <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
                     <table class="table table-bordered table-striped table-condensed table-responsive">
                         <caption>
                             <h4>Tous les articles</h4>
