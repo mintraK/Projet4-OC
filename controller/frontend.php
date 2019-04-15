@@ -20,7 +20,7 @@ function post()
     $commentManager = new CommentManager();
     $post = $postManager->getPost($_GET['id']);
     $comments = $commentManager->getComments($_GET['id']);
-    if(empty($post)&& empty($comments)){
+    if(empty($post) && empty($comments)){
         throw new Exception('Aucun billet ou commentaire(s) trouvé(s) !');
     }
     else{
