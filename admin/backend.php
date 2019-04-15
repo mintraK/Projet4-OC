@@ -16,21 +16,25 @@ if($_SESSION['pseudo']== "admin"){
         $postManager = new PostManager();
         $post = $postManager->getPost($postId);  
         require('view/editArticleView.php');
-    
-        if(isset($_POST['titre'])){
-            $post->setTitre($_POST['titre']);
-            $post->setContenu($_POST['contenu']);
-            $isEdit = $postManager->editArticle($post);
-           
-            if ($isEdit == 1)
-            {
-                header("Location:index.php");
+        if($_GET['id'] == $post->id()){
+            if(isset($_POST['titre'])){
+                $post->setTitre($_POST['titre']);
+                $post->setContenu($_POST['contenu']);
+                $isEdit = $postManager->editArticle($post);
+            
+                if ($isEdit == 1)
+                {
+                    header("Location:index.php");
+                }
+                else 
+                {
+                    throw new Exception('Impossible de éditer le billet!');
+                }
             }
-            else 
-            {
-                throw new Exception('Impossible de éditer le billet!');
-            }
-           
+        }
+        else 
+        {
+            header("Location:index.php");
         }
        
     }
