@@ -15,9 +15,9 @@
         <h2>Dernier billet du blog :</h2><br/>
         <div class="row">
             <div class="news">
-                <div class="col-xs-9 col-sm-9 col-md-3 col-lg-3"><img src= "<?= $posts->photo(); ?>" alt="photo-de-billet"/>
+                <div class="col-xs-12 col-sm-11 col-md-3 col-lg-3"><img src= "<?= $posts->photo(); ?>" alt="photo-de-billet"/>
                 </div>
-                <div class="col-xs-9 col-sm-9  col-md-9 col-lg-9">
+                <div class="col-xs-12 col-sm-11  col-md-9 col-lg-9">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
                             <h3 class="panel-title"><?= $posts->titre(); ?></h3>
