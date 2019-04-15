@@ -44,9 +44,8 @@ $title = "Commentaires signalés"; ?>
                       <?php } ?>
                     </tbody>
                   </table>
-
               </div>
-            </div> <!--div de row -->
+            </div> 
           </section>     
         </div>
 <?php  $content = ob_get_clean(); ?>
