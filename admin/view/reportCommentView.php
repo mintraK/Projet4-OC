@@ -1,5 +1,4 @@
 <?php
-// On démarre la session AVANT d'écrire du code HTML
  session_start();
  
 $title = "Commentaires signalés"; ?>
@@ -12,7 +11,8 @@ $title = "Commentaires signalés"; ?>
           <section class = "detail" >
             <div class="row">
                 <?php include("menuverticale.php"); ?>
-                <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+                <div class="col-xs-0 col-sm-0 col-md-1 col-lg-1"></div>
+                <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
                   <table class="table table-bordered table-striped table-condensed">
                     <caption>
                         <h4>Tous les commentaires signalés</h4>
