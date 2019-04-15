@@ -21,8 +21,8 @@
                   <textarea id="mytextarea" name="contenu"></textarea>
                   <button id="button" type="submit" name="button">publier</button>
                 </form>
-            </div> <!--div de col -->
-          </div><!--div de row -->
+            </div>
+          </div>
         </section>
         <section class = "pied">
           <?php include("../footer.php"); ?>
