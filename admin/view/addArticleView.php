@@ -10,7 +10,8 @@
         <section class = "detail">
           <div class="row">
             <?php include("menuverticale.php");?>
-            <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">   
+            <div class="col-xs-0 col-sm-0 col-md-1 col-lg-1"></div>
+            <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10"> 
                 <h1>Ajouter un billet</h1>
                 <form method="post" action="index.php?action=addArticle" enctype="multipart/form-data">
                   <input type="text" name = "titre" placeholder ="Saisisez le titre"/><br />
