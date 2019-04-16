@@ -85,7 +85,12 @@ td:nth-child(2) {
     .table-bordered>tbody>tr>td {
         border: none;
     }
-
+    #menu-vertical, #menu-vertical ul {
+  
+        margin-left:auto;
+        margin-right: auto;
+       
+    }
 }
 @media all and (max-width: 480px){
     body{font-size: 11px;}
@@ -99,10 +104,5 @@ td:nth-child(2) {
 	ul,a, legend{
 		font-size: 13px;
     }
-    #menu-vertical, #menu-vertical ul {
-  
-        margin-left:auto;
-        margin-right: auto;
-       
-    }
+   
 }
