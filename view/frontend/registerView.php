@@ -14,26 +14,26 @@
                 <fieldset>
                     <legend class="text-center">Créer un compte</legend>
                     <div class="form-group">
-                        <label class="control-label" for="textinput">Pseudo</label>  
+                        <label class="control-label" for="pseudo">Pseudo</label>  
                         <input  id = "pseudo" name="pseudo" type="text" placeholder="Pseudo" class="form-control input-md">
                     </div>
                     <div class="form-group">
-                        <label class=" control-label" for="passwordinput">Mot de passe</label>
+                        <label class=" control-label" for="pwd">Mot de passe</label>
                         <input  id ="pwd" name="pwd" type="password" placeholder="Mot de passe" class="form-control input-md">
                         <span class="help-block" style="display:none;">help</span>
                     </div>
                     <div class="form-group">
-                        <label class="control-label" for="passwordinput">Retapez votre mot de passe</label>
+                        <label class="control-label" for="repwd">Retapez votre mot de passe</label>
                         <input  id ="repwd" name="repwd" type="password" placeholder="Mot de passe" class="form-control input-md">
                         <span id="helprepwd" class="help-block" style="color:red;  display:none;">Mot de passe ne sont pas identiques</span>
                     </div>
                     <div class="form-group">
-                        <label class=" control-label" for="textinput">Adresse email</label>  
+                        <label class=" control-label" for="mail">Adresse email</label>  
                         <input id ="mail" name="mail" type="text" placeholder="mail@mail.com" class="form-control input-md">
                         <span id ="helpmail" class="help-block" style="color: red; display:none;">Utilisez autre émail</span>  
                     </div>
                     <div class="form-group">
-                        <label class=" control-label" for="singlebutton"></label>
+                        <label class=" control-label" for="inscrire"></label>
                         <button id="inscrire"  type="submit" name="singlebutton" class="btn btn-primary">S'inscrire</button>
                     </div>
                 </fieldset>
