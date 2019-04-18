@@ -30,12 +30,13 @@ function loginUser()
 {  
         if(isset($_POST['pseudo']) && isset($_POST['pwd'])){
             if (!empty($_POST['pseudo']) && !empty($_POST['pwd'])) {
-
+                $pseudo = strip_tags($_POST['pseudo']);
                 $user = new UserManager(); 
-                $userexist = $user->userExist($_POST['pseudo'],"");
+                $userexist = $user->userExist($pseudo,"");
                 if ($userexist){
-                    $res =$user->userLogin($_POST['pseudo']); 
-                    $isPasswordCorrect = password_verify($_POST['pwd'], $res->pwd());
+                    $res =$user->userLogin($pseudo); 
+                    $pwd = strip_tags($_POST['pwd']);
+                    $isPasswordCorrect = password_verify($pwd, $res->pwd());
                     if (empty($res))
                     {
                         throw new Exception('Mauvais identifiant ou mot de passe !');
@@ -71,15 +72,15 @@ function  register()
         if($_POST['pwd']==$_POST['repwd']){
             
             if(preg_match("/.+@.+\..+/", $_POST['mail'])){
-                $pseudo =  $_POST['pseudo'];
-                $mail =   $_POST['mail'];
+                $pseudo =  strip_tags($_POST['pseudo']);
+                $mail =   strip_tags($_POST['mail']);
             
                 $user = new UserManager(); 
                 $res = $user->userExist($pseudo, $mail);
     
                 if(!$res)
                 {
-                    $password_hache = password_hash($_POST['pwd'], PASSWORD_DEFAULT);
+                    $password_hache = password_hash(strip_tags($_POST['pwd']), PASSWORD_DEFAULT);
                     $isCreate = $user->createUser($pseudo, $password_hache, $mail);
                     if( $isCreate == 1)
                     {
