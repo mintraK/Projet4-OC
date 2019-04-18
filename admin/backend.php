@@ -18,7 +18,7 @@ if($_SESSION['pseudo']== "admin"){
         require('view/editArticleView.php');
         if($_GET['id'] == $post->id()){
             if(isset($_POST['titre'])){
-                $post->setTitre($_POST['titre']);
+                $post->setTitre(strip_tags($_POST['titre']));
                 $post->setContenu($_POST['contenu']);
                 $isEdit = $postManager->editArticle($post);
             
@@ -41,7 +41,7 @@ if($_SESSION['pseudo']== "admin"){
     function addArticle(){
         if(isset($_POST['titre'])){
             if(!empty($_POST['titre'])){
-                $titre =  $_POST['titre'];
+              $titre =  strip_tags($_POST['titre']);
               $contenu =   $_POST['contenu'];
           
               // Ajout contenu avec Image
@@ -107,9 +107,7 @@ if($_SESSION['pseudo']== "admin"){
         if(isset($_GET['id'])){
             $postManager = new PostManager();
             $isDelete = $postManager->deleteArticle($_GET['id']);
-            $commentManager = new CommentManager();
-            $isDelete2 = $commentManager->deleteCommentOfArticle($_GET['id']);
-            if($isDelete==1 && $isDelete2==1){
+            if($isDelete==1){
                 header("Location:index.php");
             }
             else{
