@@ -29,9 +29,11 @@ function post()
 }
 
 function addComment($postId, $author, $comment)
-{
+{   
     $commentManager = new CommentManager(); 
-    $addComment = $commentManager->postComment($postId, $author, $comment);
+    $author1 = strip_tags($author);
+    $comment1 = strip_tags($comment);
+    $addComment = $commentManager->postComment($postId, $author1, $comment1);
 
     if ($addComment === false) {
         throw new Exception('Impossible d\'ajouter le commentaire !');
